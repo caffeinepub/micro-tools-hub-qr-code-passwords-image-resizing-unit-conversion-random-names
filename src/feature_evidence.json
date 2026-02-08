@@ -1,0 +1,23 @@
+{
+  "kind": "feature_evidence_report",
+  "features": [
+    {
+      "featureId": "feature-complete-the-existing-deployment-guide-at-frontend-deployment-md-so-it-contains-a-full-runnable-set-of-steps-to-deploy-the-app-to-the-internet-computer-mainnet-live-including-build-deploy-commands-environment-network-selection-and-a-short-post-deploy-verification-checklist",
+      "featureTitle": "Complete the existing deployment guide at frontend/DEPLOYMENT.md so it contains a full, runnable set of steps to deploy the app to the Internet Computer mainnet (live), including build/deploy commands, environment/network selection, and a short post-deploy verification checklist.",
+      "files": [
+        "frontend/DEPLOYMENT.md"
+      ],
+      "components": [
+        "core-infrastructure@1.0.2",
+        "shadcn-ui@1.0.0",
+        "build-template-react@1.0.0",
+        "initial-app@1.0.0",
+        "github-export-icp-cli@1.0.0"
+      ],
+      "testIds": [
+        "REQ-12"
+      ],
+      "confidence": "high"
+    }
+  ]
+}

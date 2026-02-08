@@ -1,0 +1,149 @@
+{
+  "schemaVersion": "1.0.0",
+  "projectStateVersion": 9,
+  "summary": "Micro tools hub app featuring: QR Code Generator, Password Generator, Image Resizer, Unit Converter, Random Name Generator, plus AdSense ad placements (top and bottom banners) for monetization.",
+  "architectural_notes": [
+    "Monetization via ads: integrate Google AdSense (browser-side script) and render two ad slots (top and bottom banners) across the app or key pages."
+  ],
+  "known_issues": [],
+  "isFixRequest": false,
+  "existing_features": [
+    {
+      "id": "feature-create-a-micro-tools-hub-home-screen-that-lists-and-navigates-to-these-tools-qr-code-generator-password-generator-image-resizer-unit-converter-and-random-name-generator",
+      "title": "Create a Micro Tools Hub home screen that lists and navigates to these tools: QR Code Generator, Password Generator, Image Resizer, Unit Converter, and Random Name Generator.",
+      "reqIds": [
+        "REQ-1"
+      ],
+      "version": 1
+    },
+    {
+      "id": "feature-implement-a-qr-code-generator-tool-that-allows-users-to-enter-text-url-and-generate-a-qr-code-preview-with-an-option-to-download-the-qr-code-image",
+      "title": "Implement a QR Code Generator tool that allows users to enter text/URL and generate a QR code preview, with an option to download the QR code image.",
+      "reqIds": [
+        "REQ-2"
+      ],
+      "version": 1
+    },
+    {
+      "id": "feature-implement-a-password-generator-tool-with-configurable-options-length-include-uppercase-lowercase-numbers-symbols-and-a-one-click-copy-to-clipboard-action",
+      "title": "Implement a Password Generator tool with configurable options (length, include uppercase, lowercase, numbers, symbols) and a one-click copy-to-clipboard action.",
+      "reqIds": [
+        "REQ-3"
+      ],
+      "version": 1
+    },
+    {
+      "id": "feature-implement-an-image-resizer-tool-that-lets-users-upload-an-image-resize-by-width-height-with-optional-aspect-ratio-lock-preview-the-result-and-download-the-resized-image",
+      "title": "Implement an Image Resizer tool that lets users upload an image, resize by width/height (with optional aspect ratio lock), preview the result, and download the resized image.",
+      "reqIds": [
+        "REQ-4"
+      ],
+      "version": 1
+    },
+    {
+      "id": "feature-implement-a-unit-converter-tool-covering-common-categories-with-two-way-conversion-at-minimum-length-weight-mass-temperature-and-volume",
+      "title": "Implement a Unit Converter tool covering common categories with two-way conversion: at minimum Length, Weight/Mass, Temperature, and Volume.",
+      "reqIds": [
+        "REQ-5"
+      ],
+      "version": 1
+    },
+    {
+      "id": "feature-implement-a-random-name-generator-tool-that-generates-one-or-multiple-random-names-with-basic-configuration-count-and-style-type-and-supports-copy-to-clipboard",
+      "title": "Implement a Random Name Generator tool that generates one or multiple random names with basic configuration (count and style/type), and supports copy to clipboard.",
+      "reqIds": [
+        "REQ-6"
+      ],
+      "version": 1
+    },
+    {
+      "id": "feature-apply-a-cohesive-creative-visual-theme-across-the-hub-and-all-tool-pages-color-palette-typography-spacing-and-components-and-keep-it-consistent-throughout-the-app-avoid-blue-purple-as-the-primary-palette",
+      "title": "Apply a cohesive, creative visual theme across the hub and all tool pages (color palette, typography, spacing, and components) and keep it consistent throughout the app (avoid blue & purple as the primary palette).",
+      "reqIds": [
+        "REQ-7"
+      ],
+      "version": 1
+    },
+    {
+      "id": "feature-add-the-provided-google-adsense-loader-script-to-the-global-html-entry-point-so-it-loads-once-for-the-entire-app-use-this-exact-snippet-unchanged-script-async-src-https-pagead2-googlesyndication-com-pagead-js-adsbygoogle-js-client-ca-pub-9284074903614668-crossorigin-anonymous-script",
+      "title": "Add the provided Google AdSense loader script to the global HTML entry point so it loads once for the entire app.\n\nUse this exact snippet (unchanged):\n\n<script async src=\"https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-9284074903614668\"\n     crossorigin=\"anonymous\"></script>",
+      "reqIds": [
+        "REQ-8"
+      ],
+      "version": 1
+    },
+    {
+      "id": "feature-add-two-banner-ad-placement-areas-one-near-the-top-of-the-app-content-and-one-near-the-bottom-the-top-banner-must-render-below-the-header-and-above-the-main-page-content-the-bottom-banner-must-render-above-the-footer-each-banner-area-must-be-visually-distinct-but-unobtrusive-responsive-and-reserve-space-to-minimize-layout-shift-include-minimal-user-facing-placeholder-labeling-in-english-e-g-advertisement-within-the-banner-area-so-the-placement-is-visible-even-before-ad-units-are-configured",
+      "title": "Add two banner ad placement areas: one near the top of the app content and one near the bottom.\n\n- The top banner must render below the header and above the main page content.\n- The bottom banner must render above the footer.\n- Each banner area must be visually distinct but unobtrusive, responsive, and reserve space to minimize layout shift.\n- Include minimal, user-facing placeholder labeling in English (e.g., \"Advertisement\") within the banner area so the placement is visible even before ad units are configured.",
+      "reqIds": [
+        "REQ-9"
+      ],
+      "version": 1
+    },
+    {
+      "id": "feature-update-the-app-footer-so-the-copyright-year-is-generated-dynamically-from-the-user-s-current-date-at-runtime-instead-of-a-hard-coded-year-to-keep-the-live-site-accurate-over-time",
+      "title": "Update the app footer so the copyright year is generated dynamically from the user’s current date at runtime (instead of a hard-coded year), to keep the live site accurate over time.",
+      "reqIds": [
+        "REQ-10"
+      ],
+      "version": 1
+    },
+    {
+      "id": "feature-add-a-concise-deployment-guide-for-publishing-the-app-to-the-internet-computer-mainnet-live-including-build-deploy-commands-environment-network-selection-and-a-short-post-deploy-verification-checklist",
+      "title": "Add a concise deployment guide for publishing the app to the Internet Computer mainnet (live), including build/deploy commands, environment/network selection, and a short post-deploy verification checklist.",
+      "reqIds": [
+        "REQ-11"
+      ],
+      "version": 1
+    },
+    {
+      "id": "feature-complete-the-existing-deployment-guide-at-frontend-deployment-md-so-it-contains-a-full-runnable-set-of-steps-to-deploy-the-app-to-the-internet-computer-mainnet-live-including-build-deploy-commands-environment-network-selection-and-a-short-post-deploy-verification-checklist",
+      "title": "Complete the existing deployment guide at frontend/DEPLOYMENT.md so it contains a full, runnable set of steps to deploy the app to the Internet Computer mainnet (live), including build/deploy commands, environment/network selection, and a short post-deploy verification checklist.",
+      "reqIds": [
+        "REQ-12"
+      ],
+      "version": 1
+    }
+  ],
+  "new_feature_requests": [
+    {
+      "id": "AR-1",
+      "summary": "Add QR Code Generator tool",
+      "reqIds": [],
+      "status": "pending"
+    },
+    {
+      "id": "AR-2",
+      "summary": "Add Password Generator tool",
+      "reqIds": [],
+      "status": "pending"
+    },
+    {
+      "id": "AR-3",
+      "summary": "Add Image Resizer tool",
+      "reqIds": [],
+      "status": "pending"
+    },
+    {
+      "id": "AR-4",
+      "summary": "Add Unit Converter tool",
+      "reqIds": [],
+      "status": "pending"
+    },
+    {
+      "id": "AR-5",
+      "summary": "Add Random Name Generator tool",
+      "reqIds": [],
+      "status": "pending"
+    },
+    {
+      "id": "AR-6",
+      "summary": "Add AdSense ad placements: top and bottom banner areas using provided AdSense script/snippet",
+      "reqIds": [],
+      "status": "pending"
+    }
+  ],
+  "projectName": "Micro Tools Hub (QR Code, Passwords, Image Resizing, Unit Conversion, Random Names)",
+  "clarification_mode": "instant",
+  "clarification_rounds": 0
+}

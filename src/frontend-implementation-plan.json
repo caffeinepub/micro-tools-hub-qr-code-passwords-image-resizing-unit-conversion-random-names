@@ -1,0 +1,23 @@
+{
+  "kind": "implementation_plan",
+  "version": "1.0",
+  "title": "Complete mainnet deployment guide for Micro Tools Hub",
+  "requirements": [
+    {
+      "id": "REQ-12",
+      "summary": "Finish frontend/DEPLOYMENT.md with complete, runnable Internet Computer mainnet deployment steps and post-deploy verification checklist.",
+      "acceptanceCriteria": [
+        "frontend/DEPLOYMENT.md is no longer truncated and renders as valid Markdown (no dangling/open code fences).",
+        "The guide includes explicit commands/steps for: installing prerequisites, building the frontend, deploying canisters with dfx to mainnet, and how to select the mainnet network.",
+        "The guide includes a post-deploy verification checklist covering at least: app loads in browser, each tool page is accessible from the hub, QR/password/name/unit/image tools function in the deployed build, and AdSense script is present in the delivered HTML."
+      ],
+      "file_operations": [
+        {
+          "path": "frontend/DEPLOYMENT.md",
+          "operation": "modify",
+          "description": "Rewrite and complete the deployment guide so it is fully runnable end-to-end for IC mainnet: prerequisites installation/verification (dfx, Node, pnpm), clean install/build steps, mainnet network selection (ic), canister deployment commands, how to obtain the deployed URL(s), and a concise post-deploy verification checklist that explicitly checks Hub navigation to all tool pages (QR/password/random name/unit conversion/image resizer), that each tool functions in the deployed build, and that the existing Google AdSense script remains present in the delivered HTML. Ensure Markdown validity by closing all code fences and removing truncation."
+        }
+      ]
+    }
+  ]
+}

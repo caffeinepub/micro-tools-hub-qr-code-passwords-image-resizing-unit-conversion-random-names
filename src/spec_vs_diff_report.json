@@ -1,0 +1,32 @@
+{
+  "kind": "spec_vs_diff_report",
+  "version": "1.0",
+  "generatedAt": "2026-02-08T10:09:35.234Z",
+  "summary": "REQ-12 asks to complete frontend/DEPLOYMENT.md with a full, runnable mainnet deployment guide and verification checklist. The diff includes a rewritten DEPLOYMENT.md, but the provided content snippet is truncated right after an opening code fence, so the acceptance criteria (valid Markdown, explicit runnable commands, and checklist items) cannot be confirmed from the diff summary. The diff also shows multiple unrelated frontend feature/page/library changes not requested by the BuildRequest.",
+  "missing_requirements": [
+    {
+      "id": "REQ-12",
+      "requirement": "Complete frontend/DEPLOYMENT.md with a full, runnable set of steps to deploy to IC mainnet, including build/deploy commands, how to select mainnet network, and a post-deploy verification checklist (app loads, tool pages accessible, QR/password/name/unit/image tools function, AdSense script present).",
+      "reason": "Although DEPLOYMENT.md is modified, the diff snippet shows it cut off immediately after an opening code fence (```), and does not show the required explicit commands, mainnet selection steps, or the full verification checklist. From the provided diff summary, it cannot be verified that the document is no longer truncated or that it renders as valid Markdown with closed code fences.",
+      "evidence": [
+        "frontend/DEPLOYMENT.md"
+      ]
+    }
+  ],
+  "hallucinated_features": [
+    {
+      "description": "Broad frontend application/tool implementation and UI/theme updates (hub navigation, tool pages, utilities, layout, styles) beyond editing the deployment guide.",
+      "reason": "The BuildRequest only requests completing the deployment guide (REQ-12) and explicitly lists non-goals like not adding/expanding tools. The diff summary indicates modifications across many frontend pages/components/libs unrelated to DEPLOYMENT.md.",
+      "evidence": [
+        "frontend-file-summaries.txt",
+        "project_state.json (truncated)"
+      ]
+    }
+  ],
+  "confidence": 0.66,
+  "changed_files": [
+    "frontend-file-summaries.txt",
+    "frontend/DEPLOYMENT.md",
+    "project_state.json"
+  ]
+}

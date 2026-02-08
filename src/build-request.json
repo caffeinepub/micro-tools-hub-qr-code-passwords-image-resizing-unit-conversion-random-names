@@ -1,0 +1,49 @@
+{
+  "kind": "build_request",
+  "title": "Finalize and complete mainnet deployment guide for Micro Tools Hub",
+  "priority": "normal",
+  "requirements": [
+    {
+      "id": "REQ-12",
+      "text": "Complete the existing deployment guide at frontend/DEPLOYMENT.md so it contains a full, runnable set of steps to deploy the app to the Internet Computer mainnet (live), including build/deploy commands, environment/network selection, and a short post-deploy verification checklist.",
+      "target": "frontend",
+      "source": {
+        "messageIds": [
+          "msg-4"
+        ],
+        "quotes": [
+          "Yes"
+        ]
+      },
+      "acceptanceCriteria": [
+        "frontend/DEPLOYMENT.md is no longer truncated and renders as valid Markdown (no dangling/open code fences).",
+        "The guide includes explicit commands/steps for: installing prerequisites, building the frontend, deploying canisters with dfx to mainnet, and how to select the mainnet network.",
+        "The guide includes a post-deploy verification checklist covering at least: app loads in browser, each tool page is accessible from the hub, QR/password/name/unit/image tools function in the deployed build, and AdSense script is present in the delivered HTML."
+      ]
+    }
+  ],
+  "constraints": [
+    "Backend must remain a single Motoko actor (all backend logic in backend/main.mo).",
+    "Do not edit files under frontend/src/components/ui or other frontend immutablePaths; compose those components instead.",
+    "Use English for any user-facing text."
+  ],
+  "nonGoals": [
+    "Adding new tools or expanding existing tools’ functionality.",
+    "Changing the Google AdSense loader snippet in frontend/index.html.",
+    "Implementing third-party authentication beyond Internet Identity."
+  ],
+  "imageRequirements": {
+    "required": [],
+    "edits": []
+  },
+  "userProfileUpdate": {
+    "goalsToAdd": [],
+    "goalsToRemove": [],
+    "preferencesToAdd": [],
+    "preferencesToRemove": [],
+    "miscToAdd": [],
+    "miscToRemove": [],
+    "fieldsToSet": {},
+    "fieldsToDelete": []
+  }
+}

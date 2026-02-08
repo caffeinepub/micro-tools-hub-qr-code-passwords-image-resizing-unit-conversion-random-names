@@ -1,2 +1,3 @@
-# micro-tools-hub-qr-code-passwords-image-resizing-unit-conversion-random-names
-Exported from Caffeine project: Micro Tools Hub (QR Code, Passwords, Image Resizing, Unit Conversion, Random Names)
+## 
+
+To run app build and run docker image: `docker build -t app . docker run -it --network host app`
