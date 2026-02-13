@@ -1,6 +1,6 @@
 import { Card, CardHeader, CardTitle, CardDescription, CardContent } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
-import { Sparkles, Type, Calculator } from 'lucide-react';
+import { Sparkles, Type, Calculator, Clock } from 'lucide-react';
 import { type Page } from '../App';
 
 interface HubPageProps {
@@ -31,6 +31,14 @@ const tools = [
     icon: Calculator,
     color: 'text-blue-600 dark:text-blue-400',
     bgColor: 'bg-blue-50 dark:bg-blue-950/30',
+  },
+  {
+    id: 'daily' as Page,
+    title: 'Daily Utilities',
+    description: 'Essential time management tools: timers, stopwatch, alarms, time zones, calendar, and shift calculator',
+    icon: Clock,
+    color: 'text-green-600 dark:text-green-400',
+    bgColor: 'bg-green-50 dark:bg-green-950/30',
   },
 ];
 

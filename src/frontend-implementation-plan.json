@@ -1,282 +1,82 @@
 {
   "kind": "implementation_plan",
   "version": "1.0",
-  "title": "Number & Conversion Tools hub card + single-page tabbed calculators/converters",
+  "title": "Daily Utilities hub card + tabbed Daily Utilities tools page",
   "requirements": [
     {
-      "id": "REQ-21",
-      "summary": "Add a new “Number & Conversion Tools” hub card that navigates to the dedicated tools page.",
+      "id": "REQ-38",
+      "summary": "Add a new \"Daily Utilities\" card to the hub grid that navigates to the Daily Utilities page.",
       "acceptanceCriteria": [
-        "The Hub page shows a new card labeled “Number & Conversion Tools”.",
-        "Clicking the card (or its “Open Tool” button) navigates to the dedicated Number & Conversion Tools page.",
-        "All user-facing text for this new card is in English."
+        "The Hub grid includes a card labeled \"Daily Utilities\".",
+        "Clicking the card navigates to the Daily Utilities page using the same onNavigate(Page) mechanism as other hub cards.",
+        "All user-facing text for the new card is in English."
       ],
       "file_operations": [
         {
           "path": "frontend/src/pages/HubPage.tsx",
           "operation": "modify",
-          "description": "Add a new tool card entry for “Number & Conversion Tools” (English title/description) and wire its click + “Open Tool” button to navigate to the new Page value. Use existing shadcn/ui Card and Button composition (do not edit ui components). Verify the component's usage instructions before implementing."
+          "description": "Add a new tools[] entry for the \"Daily Utilities\" hub card (title/description in English), with an appropriate icon and styling consistent with other cards, and ensure it calls onNavigate('daily') when selected."
         }
       ]
     },
     {
-      "id": "REQ-22",
-      "summary": "Wire the new “Number & Conversion Tools” page into App navigation and ensure back navigation returns to hub.",
+      "id": "REQ-39",
+      "summary": "Add a new \"daily\" page id to app navigation and render the Daily Utilities page from App.tsx.",
       "acceptanceCriteria": [
-        "The application has a new page route/state (e.g., Page value) for “Number & Conversion Tools”.",
-        "Navigating to the new page renders it inside the existing AppLayout.",
-        "The header back button appears on the new page and returns to the hub."
+        "App.tsx exports a Page union that includes a \"daily\" page id.",
+        "The main render switch in App.tsx renders the Daily Utilities page when currentPage is \"daily\".",
+        "When on the Daily Utilities page, the header back button returns to the hub (current behavior for non-hub pages)."
       ],
       "file_operations": [
         {
           "path": "frontend/src/App.tsx",
           "operation": "modify",
-          "description": "Extend the Page union with a new value for the Number & Conversion Tools page, import the new page component, and add a render switch case so it renders within existing AppLayout navigation. (AppLayout back button already returns to hub for non-hub pages.)"
+          "description": "Extend the exported Page union to include 'daily', import the new DailyUtilitiesPage component, and add a switch case to render it when currentPage === 'daily'."
         }
       ]
     },
     {
-      "id": "REQ-23",
-      "summary": "Create the dedicated “Number & Conversion Tools” page with a responsive tabbed interface and consistent Clear/Copy interactions.",
+      "id": "REQ-40",
+      "summary": "Create a dedicated Daily Utilities page with a responsive tabbed interface exposing 7 tools, with clear reset and copy interactions where applicable.",
       "acceptanceCriteria": [
-        "A new “Number & Conversion Tools” page exists and is reachable from the Hub.",
-        "All 10 tools are available on this single page (not separate routes) and are selectable via tabs/sections.",
-        "The tool navigation UI is responsive and does not hide any tool tabs on small screens (wraps and/or allows horizontal scroll) while keeping labels in English.",
-        "Each tool that produces a result offers: (1) a Clear action, and (2) a Copy action where copying makes sense; Copy uses the shared toast-based clipboard feedback."
+        "A new Daily Utilities page component exists under frontend/src/pages and is rendered by App.tsx when navigating to \"daily\".",
+        "The page title and tool labels are in English.",
+        "The page uses tabs (with wrapping tab triggers) to expose at least these 7 tools: Countdown timer, Stopwatch, Pomodoro timer, Alarm, Time zone difference checker, Simple calendar printer, Shift / rota hours calculator.",
+        "Each tool has a clear way to reset inputs/state (e.g., a \"Clear\" button) where applicable.",
+        "For tools that produce a text output (e.g., time zone difference summary, calendar text output, shift hours summary), a \"Copy\" action uses copyToClipboard from frontend/src/lib/clipboard.ts and shows the existing toast feedback."
       ],
       "file_operations": [
         {
-          "path": "frontend/src/pages/NumberConversionToolsPage.tsx",
+          "path": "frontend/src/pages/DailyUtilitiesPage.tsx",
           "operation": "create",
-          "description": "Create a new page component titled “Number & Conversion Tools” that renders all 10 tools on a single page using a responsive shadcn/ui Tabs interface (matching the overflow-x / wrap behavior used in TextWritingToolsPage). Each tool section should have clear input/output areas, a Clear action, and Copy actions where appropriate using copyToClipboard from frontend/src/lib/clipboard.ts for toast-based feedback. Verify the component's usage instructions before implementing."
+          "description": "Create the new Daily Utilities page UI and state management as a single-page, multi-tool experience. Use the existing WrappingTabsHeader component to provide a responsive, wrapping tabs header consistent with other multi-tool pages (Verify the component's usage instructions before implementing). Provide 7 tab panels: Countdown timer, Stopwatch, Pomodoro timer, Alarm, Time zone difference checker, Simple calendar printer, Shift / rota hours calculator. For any tool with text output, add a Copy action that uses copyToClipboard from frontend/src/lib/clipboard.ts (Verify the component's usage instructions before implementing). Ensure each tool has a Clear/Reset interaction where applicable and all user-facing text is in English."
         }
       ]
     },
     {
-      "id": "REQ-24",
-      "summary": "Implement a Percentage calculator supporting X% of Y, X as % of Y, and % change A→B with immediate results.",
+      "id": "REQ-41",
+      "summary": "Implement all Daily Utilities logic on the frontend with shared reusable time/timer/timezone/calendar/shift calculation helpers in a lib module.",
       "acceptanceCriteria": [
-        "The Percentage tool supports computing X% of Y, computing X as a percent of Y, and percent change from A to B.",
-        "Invalid or empty inputs do not crash the UI; results are cleared or show a simple English validation message.",
-        "Results can be copied to clipboard via a Copy action."
+        "No changes are required in backend/main.mo (the backend remains unused for these tools).",
+        "Shared utility functions are created/reused from a lib module rather than embedding all calculation logic directly inside the page component.",
+        "Countdown timer: user can set a duration or target date/time and see remaining time update while running; can start/pause/reset.",
+        "Stopwatch: user can start/pause/reset and see elapsed time formatted consistently; (optional) laps if implemented must have a clear way to clear.",
+        "Pomodoro timer: user can start/pause/reset and configure at minimum work minutes and break minutes; clearly indicates current phase (work/break).",
+        "Alarm: user can set a time (and optionally a date); when it triggers, a clear on-screen indication appears and can be dismissed; includes a way to clear/disable the alarm.",
+        "Time zone difference checker: user can choose two time zones (at minimum via a curated list) and see the current offset/difference and an example time conversion; includes Clear/reset.",
+        "Simple calendar printer: user can choose month and year and generate a printable view; provides a \"Print\" action that uses the browser print flow.",
+        "Shift / rota hours calculator: user can enter at minimum start and end date/time (and optionally breaks) and get total hours; handles overnight shifts and shows validation errors in English for invalid inputs."
       ],
       "file_operations": [
         {
-          "path": "frontend/src/pages/NumberConversionToolsPage.tsx",
-          "operation": "modify",
-          "description": "Add a “Percentage” tab/section with inputs for (a) X and Y for “X% of Y”, (b) X and Y for “What percent is X of Y”, and (c) A and B for “Percentage change”. Display computed outputs immediately, show simple English validation messages for invalid inputs, and provide Copy/Clear actions (Copy uses copyToClipboard). Use shadcn/ui Input, Label, Button, Card, and Tabs components. Verify the component's usage instructions before implementing."
-        },
-        {
-          "path": "frontend/src/lib/numberTools.ts",
+          "path": "frontend/src/lib/dailyUtilities.ts",
           "operation": "create",
-          "description": "Add reusable percentage calculation utilities (X% of Y, X as percent of Y, percent change A→B) with safe numeric parsing helpers (no UI strings) so the page can consistently compute/clear results without duplicating logic."
-        }
-      ]
-    },
-    {
-      "id": "REQ-25",
-      "summary": "Implement a Tip / gratuity calculator with optional split count and copyable summary.",
-      "acceptanceCriteria": [
-        "User can enter bill amount and tip percentage to see tip and total.",
-        "If a split count is provided (>1), the UI also shows per-person tip and per-person total.",
-        "Results are displayed in a clear, English-labeled summary and can be copied (summary string)."
-      ],
-      "file_operations": [
-        {
-          "path": "frontend/src/pages/NumberConversionToolsPage.tsx",
-          "operation": "modify",
-          "description": "Add a “Tip” tab/section with bill amount, tip %, and optional split count inputs. Display English-labeled tip amount, total, and (when split > 1) per-person tip/total. Provide Clear and Copy Summary actions using copyToClipboard. Use shadcn/ui form components and Card layout. Verify the component's usage instructions before implementing."
+          "description": "Add shared, reusable frontend-only utility functions to support Daily Utilities calculations and formatting (countdown/stopwatch duration formatting, pomodoro phase/cycle computations, alarm trigger time computations, time zone offset/difference calculation using local Intl APIs with a curated time zone list, simple month calendar data generation for printing, and shift/rota total hours calculations including overnight shifts and optional break handling). Keep all validation/error messages in English."
         },
         {
-          "path": "frontend/src/lib/numberTools.ts",
+          "path": "frontend/src/pages/DailyUtilitiesPage.tsx",
           "operation": "modify",
-          "description": "Add reusable tip calculation utilities (tip amount, total, and per-person values when split > 1) plus shared numeric validation helpers to keep UI behavior consistent."
-        }
-      ]
-    },
-    {
-      "id": "REQ-26",
-      "summary": "Implement a Split bill calculator with optional tax/fee percentage and copyable summary.",
-      "acceptanceCriteria": [
-        "User can input total amount and number of people and see per-person share.",
-        "If an optional tax/fee percentage is provided, the calculator includes it in the final total before splitting.",
-        "The tool provides Clear and Copy actions (copy a human-readable summary in English)."
-      ],
-      "file_operations": [
-        {
-          "path": "frontend/src/pages/NumberConversionToolsPage.tsx",
-          "operation": "modify",
-          "description": "Add a “Split Bill” tab/section with total amount, number of people, and optional tax/fee % inputs. Show computed final total (if fee applied) and per-person share, with English labels plus Clear/Copy Summary actions using copyToClipboard. Use shadcn/ui Input/Label/Button/Card. Verify the component's usage instructions before implementing."
-        },
-        {
-          "path": "frontend/src/lib/numberTools.ts",
-          "operation": "modify",
-          "description": "Add reusable split-bill utilities that apply optional tax/fee percent before splitting and return values suitable for consistent formatting in the UI."
-        }
-      ]
-    },
-    {
-      "id": "REQ-27",
-      "summary": "Implement an Age calculator with DOB and optional as-of date (default today) and English validation.",
-      "acceptanceCriteria": [
-        "User can pick/enter a date of birth and optionally an “as of” date; default is the current local date.",
-        "The tool outputs an age result in English (at minimum years; optionally also months and days).",
-        "Invalid date input shows an English validation message and no incorrect calculations are shown."
-      ],
-      "file_operations": [
-        {
-          "path": "frontend/src/pages/NumberConversionToolsPage.tsx",
-          "operation": "modify",
-          "description": "Add an “Age” tab/section using date inputs for Date of Birth and optional As Of (pre-filled to current local date). Show age at minimum in years, and include months/days breakdown if feasible without complicating the UI. Provide Clear and Copy Result actions using copyToClipboard; show simple English validation for invalid/missing dates. Use shadcn/ui Input/Label/Button/Card. Verify the component's usage instructions before implementing."
-        },
-        {
-          "path": "frontend/src/lib/numberTools.ts",
-          "operation": "modify",
-          "description": "Add reusable age calculation utilities that accept two dates (DOB, as-of) and return years (and optionally months/days breakdown) with robust date validation."
-        }
-      ]
-    },
-    {
-      "id": "REQ-28",
-      "summary": "Implement a Date difference calculator producing days difference with correct ordering and copy support.",
-      "acceptanceCriteria": [
-        "User can provide a start date and end date and see a computed difference in days.",
-        "The result is correct regardless of which date is earlier (the UI may also show direction, e.g., “Start is before end”, but must be in English).",
-        "The result can be copied to clipboard."
-      ],
-      "file_operations": [
-        {
-          "path": "frontend/src/pages/NumberConversionToolsPage.tsx",
-          "operation": "modify",
-          "description": "Add a “Date Difference” tab/section with Start Date and End Date inputs. Compute difference in days regardless of order (and optionally show an English direction note). Provide Clear and Copy Result actions using copyToClipboard and show English validation for invalid dates. Use shadcn/ui Input/Label/Button/Card. Verify the component's usage instructions before implementing."
-        },
-        {
-          "path": "frontend/src/lib/numberTools.ts",
-          "operation": "modify",
-          "description": "Add reusable date-difference utilities (days; optionally weeks/months/years breakdown) that correctly handle either date being earlier and return normalized values for UI formatting."
-        }
-      ]
-    },
-    {
-      "id": "REQ-29",
-      "summary": "Implement a Time duration calculator for time differences (optionally with dates) and/or summing durations, with normalized output.",
-      "acceptanceCriteria": [
-        "The tool provides a straightforward flow to compute a duration and shows a normalized result (e.g., total seconds and HH:MM:SS).",
-        "If inputs are invalid, the UI shows an English validation message and does not crash.",
-        "The duration result can be copied to clipboard."
-      ],
-      "file_operations": [
-        {
-          "path": "frontend/src/pages/NumberConversionToolsPage.tsx",
-          "operation": "modify",
-          "description": "Add a “Time Duration” tab/section that supports (1) computing duration between two times (optionally with dates) and (2) summing multiple durations in a simple list input flow. Display normalized output (e.g., total seconds plus HH:MM:SS) with Clear and Copy actions (copyToClipboard). Show English validation for invalid inputs. Use shadcn/ui Input/Textarea/Label/Button/Card as appropriate. Verify the component's usage instructions before implementing."
-        },
-        {
-          "path": "frontend/src/lib/numberTools.ts",
-          "operation": "modify",
-          "description": "Add reusable time-duration utilities to parse HH:MM[:SS] strings, compute differences with optional dates, sum multiple durations, and format results as HH:MM:SS plus total seconds, with input validation helpers."
-        }
-      ]
-    },
-    {
-      "id": "REQ-30",
-      "summary": "Embed Unit converters in the new page by reusing existing units conversion logic and categories.",
-      "acceptanceCriteria": [
-        "The Number & Conversion Tools page contains a Unit Converter section/tool that uses the existing conversion categories and functions.",
-        "The embedded converter supports selecting category, from/to units, entering a value, and viewing the computed result.",
-        "The embedded converter is usable on mobile and desktop and uses English labels."
-      ],
-      "file_operations": [
-        {
-          "path": "frontend/src/pages/NumberConversionToolsPage.tsx",
-          "operation": "modify",
-          "description": "Add a “Unit Converter” tab/section that embeds a converter UI similar in capability to UnitConverterPage, reusing categories/convert from frontend/src/lib/units.ts. Ensure mobile usability (responsive grid and/or stacked layout) and English labels. Provide Clear and Copy Result actions where it makes sense (copyToClipboard). Use shadcn/ui Select/Input/Label/Button/Card/Tabs. Verify the component's usage instructions before implementing."
-        }
-      ]
-    },
-    {
-      "id": "REQ-31",
-      "summary": "Implement a Binary / Decimal / Hex converter with base-aware validation and copyable outputs.",
-      "acceptanceCriteria": [
-        "User can enter a number and select/indicate its base (binary, decimal, hex).",
-        "The tool outputs the equivalent values in the other bases.",
-        "Invalid characters for the selected base show an English validation message; output is cleared rather than showing incorrect results.",
-        "Each output representation can be copied to clipboard (or a single Copy action copies all in a readable format)."
-      ],
-      "file_operations": [
-        {
-          "path": "frontend/src/pages/NumberConversionToolsPage.tsx",
-          "operation": "modify",
-          "description": "Add a “Base Converter” tab/section with a base selector (2/10/16) and an input field. Validate characters for the selected base with an English message and clear outputs on invalid input. Show binary/decimal/hex outputs and offer Copy actions (either per-output or copy-all) using copyToClipboard, plus Clear. Use shadcn/ui Select/Input/Label/Button/Card. Verify the component's usage instructions before implementing."
-        },
-        {
-          "path": "frontend/src/lib/numberTools.ts",
-          "operation": "modify",
-          "description": "Add reusable base conversion utilities that validate input for base 2/10/16, parse safely, and output normalized string representations for the other bases."
-        }
-      ]
-    },
-    {
-      "id": "REQ-32",
-      "summary": "Implement a Currency converter using only user-provided rates (no external APIs), with validation and copyable results.",
-      "acceptanceCriteria": [
-        "The Currency Converter does not call any external exchange-rate API.",
-        "User can convert an amount between two selected currencies using user-provided rate(s).",
-        "The tool clearly labels how rates are interpreted (in English) and provides input validation for non-numeric values.",
-        "The conversion result can be copied to clipboard."
-      ],
-      "file_operations": [
-        {
-          "path": "frontend/src/pages/NumberConversionToolsPage.tsx",
-          "operation": "modify",
-          "description": "Add a “Currency” tab/section that supports conversion without any external API calls by allowing either: (a) direct custom exchange rate input for a selected pair, or (b) a small editable rate table relative to a chosen base currency. Clearly explain (in English) how the rates are interpreted, validate numeric inputs, and provide Clear + Copy Result actions using copyToClipboard. Use shadcn/ui Input/Select/Button/Card and simple table layout composition (without editing ui components). Verify the component's usage instructions before implementing."
-        },
-        {
-          "path": "frontend/src/lib/numberTools.ts",
-          "operation": "modify",
-          "description": "Add reusable currency conversion utilities that compute conversions from either a direct rate or base-relative rate map, with numeric validation helpers and consistent rounding/formatting support."
-        }
-      ]
-    },
-    {
-      "id": "REQ-33",
-      "summary": "Implement a Random number picker with range, quantity, optional uniqueness, validation, and copy support.",
-      "acceptanceCriteria": [
-        "User can set min and max values and generate random integer(s) within the inclusive range.",
-        "User can set a quantity to generate multiple numbers; if “unique” is enabled, the tool prevents impossible requests (e.g., more unique numbers than range size) with an English error message.",
-        "Generated numbers are displayed clearly and can be copied to clipboard (either individually or as a combined list)."
-      ],
-      "file_operations": [
-        {
-          "path": "frontend/src/pages/NumberConversionToolsPage.tsx",
-          "operation": "modify",
-          "description": "Add a “Random” tab/section with min, max, quantity, and a uniqueness toggle. Validate inclusive range, validate quantity, and show an English error for impossible unique requests. Display generated integers clearly and support Copy actions (copy-all list and/or per-number) using copyToClipboard, plus Clear/reset. Use shadcn/ui Input/Button/Card (and a suitable existing shadcn/ui switch/checkbox component if present in the project; otherwise use a simple toggle UI composition without editing ui components). Verify the component's usage instructions before implementing."
-        },
-        {
-          "path": "frontend/src/lib/numberTools.ts",
-          "operation": "modify",
-          "description": "Add reusable random integer generation utilities supporting inclusive range, quantity, optional uniqueness, and guardrails for impossible requests."
-        }
-      ]
-    },
-    {
-      "id": "REQ-34",
-      "summary": "Add shared reusable frontend utilities for calculations/conversions with consistent parsing/formatting and validation support.",
-      "acceptanceCriteria": [
-        "Core calculator/conversion logic is encapsulated in reusable functions under frontend/src/lib (new file(s) are acceptable).",
-        "UI components call the shared functions rather than duplicating complex logic inline.",
-        "Utilities include basic input validation helpers so tools behave consistently (English error messages handled at the UI layer)."
-      ],
-      "file_operations": [
-        {
-          "path": "frontend/src/lib/numberTools.ts",
-          "operation": "modify",
-          "description": "Finalize and consolidate shared utilities for: percent math, tip/split bill, date difference/age, time duration, base conversion, currency conversion (user-provided rates only), and random numbers. Include shared helpers for safe numeric parsing, clamping, and formatting (while keeping English error messages in the UI layer)."
-        },
-        {
-          "path": "frontend/src/pages/NumberConversionToolsPage.tsx",
-          "operation": "modify",
-          "description": "Refactor the tools UI to call shared utilities from frontend/src/lib/numberTools.ts rather than embedding complex calculations inline; keep UI-only validation messaging in English and ensure Clear/Copy behaviors are consistent across all tools. Verify the component's usage instructions before implementing."
+          "description": "Refactor the Daily Utilities page to use helpers from frontend/src/lib/dailyUtilities.ts for calculations/scheduling/formatting rather than embedding all logic inline. Ensure timers update while running using browser timing (e.g., intervals) and provide Start/Pause/Reset flows per tool; ensure calendar Print uses the browser print flow."
         }
       ]
     }

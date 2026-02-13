@@ -5,7 +5,7 @@ import { Textarea } from '@/components/ui/textarea';
 import { Label } from '@/components/ui/label';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
 import { Input } from '@/components/ui/input';
-import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
+import { Tabs, TabsContent } from '@/components/ui/tabs';
 import { Copy, Trash2, Smile } from 'lucide-react';
 import {
   toUpperCase,
@@ -21,6 +21,7 @@ import {
   generateHashtags,
 } from '@/lib/textTools';
 import { copyToClipboard } from '@/lib/clipboard';
+import { WrappingTabsHeader } from '@/components/WrappingTabsHeader';
 
 const commonEmojis = [
   '😀', '😃', '😄', '😁', '😆', '😅', '🤣', '😂', '🙂', '🙃', '😉', '😊', '😇',
@@ -34,6 +35,18 @@ const commonEmojis = [
   '💕', '💞', '💓', '💗', '💖', '💘', '💝', '💟', '☮️', '✝️', '☪️', '🕉️',
   '⭐', '🌟', '✨', '⚡', '🔥', '💥', '💫', '💦', '💨', '🌈', '☀️', '🌤️',
   '⛅', '🌥️', '☁️', '🌦️', '🌧️', '⛈️', '🌩️', '🌨️', '❄️', '☃️', '⛄',
+];
+
+const tabs = [
+  { value: 'case', label: 'Case' },
+  { value: 'counter', label: 'Counter' },
+  { value: 'duplicate', label: 'Duplicates' },
+  { value: 'sort', label: 'Sort' },
+  { value: 'lines', label: 'Lines' },
+  { value: 'slug', label: 'Slug' },
+  { value: 'lorem', label: 'Lorem' },
+  { value: 'hashtag', label: 'Hashtag' },
+  { value: 'emoji', label: 'Emoji' },
 ];
 
 export default function TextWritingToolsPage() {
@@ -108,18 +121,8 @@ export default function TextWritingToolsPage() {
       </div>
 
       <Tabs defaultValue="case" className="w-full">
-        <div className="overflow-x-auto mb-6 -mx-4 px-4 sm:mx-0 sm:px-0">
-          <TabsList className="inline-flex h-auto min-w-full w-max sm:w-full flex-nowrap sm:flex-wrap justify-start sm:justify-center gap-1 p-1">
-            <TabsTrigger value="case" className="whitespace-nowrap">Case</TabsTrigger>
-            <TabsTrigger value="counter" className="whitespace-nowrap">Counter</TabsTrigger>
-            <TabsTrigger value="duplicate" className="whitespace-nowrap">Duplicates</TabsTrigger>
-            <TabsTrigger value="sort" className="whitespace-nowrap">Sort</TabsTrigger>
-            <TabsTrigger value="lines" className="whitespace-nowrap">Lines</TabsTrigger>
-            <TabsTrigger value="slug" className="whitespace-nowrap">Slug</TabsTrigger>
-            <TabsTrigger value="lorem" className="whitespace-nowrap">Lorem</TabsTrigger>
-            <TabsTrigger value="hashtag" className="whitespace-nowrap">Hashtag</TabsTrigger>
-            <TabsTrigger value="emoji" className="whitespace-nowrap">Emoji</TabsTrigger>
-          </TabsList>
+        <div className="mb-6">
+          <WrappingTabsHeader tabs={tabs} />
         </div>
 
         {/* Case Converter */}
@@ -510,7 +513,10 @@ export default function TextWritingToolsPage() {
                     </Button>
                     <Button
                       variant="outline"
-                      onClick={() => setLoremOutput('')}
+                      onClick={() => {
+                        setLoremOutput('');
+                        setLoremParagraphs('3');
+                      }}
                     >
                       <Trash2 className="h-4 w-4 mr-2" />
                       Clear
@@ -533,7 +539,7 @@ export default function TextWritingToolsPage() {
                 <Label htmlFor="hashtag-input">Input Text</Label>
                 <Textarea
                   id="hashtag-input"
-                  placeholder="Enter text to generate hashtags..."
+                  placeholder="Enter words or phrases to convert to hashtags..."
                   value={hashtagInput}
                   onChange={(e) => setHashtagInput(e.target.value)}
                   rows={4}
@@ -547,7 +553,7 @@ export default function TextWritingToolsPage() {
                   id="hashtag-output"
                   value={getHashtagOutput()}
                   readOnly
-                  rows={6}
+                  rows={4}
                   className="mt-2 bg-muted"
                 />
               </div>
@@ -581,21 +587,21 @@ export default function TextWritingToolsPage() {
               <CardTitle>Emoji Picker</CardTitle>
             </CardHeader>
             <CardContent className="space-y-4">
-              <p className="text-sm text-muted-foreground">
-                Click any emoji to copy it to your clipboard
-              </p>
-              <div className="grid grid-cols-6 sm:grid-cols-8 md:grid-cols-10 lg:grid-cols-12 gap-2">
+              <div className="grid grid-cols-8 sm:grid-cols-10 md:grid-cols-12 gap-2">
                 {commonEmojis.map((emoji, index) => (
                   <button
                     key={index}
                     onClick={() => copyToClipboard(emoji)}
-                    className="text-3xl p-3 rounded-lg hover:bg-muted transition-colors focus:outline-none focus:ring-2 focus:ring-primary"
+                    className="text-3xl hover:bg-muted rounded-lg p-2 transition-colors"
                     title={`Copy ${emoji}`}
                   >
                     {emoji}
                   </button>
                 ))}
               </div>
+              <p className="text-sm text-muted-foreground text-center">
+                Click any emoji to copy it to your clipboard
+              </p>
             </CardContent>
           </Card>
         </TabsContent>

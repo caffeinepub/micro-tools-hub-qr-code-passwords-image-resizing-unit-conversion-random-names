@@ -8,10 +8,11 @@ import RandomNamePage from './pages/RandomNamePage';
 import TextWritingToolsPage from './pages/TextWritingToolsPage';
 import PopularToolsPage from './pages/PopularToolsPage';
 import NumberConversionToolsPage from './pages/NumberConversionToolsPage';
+import DailyUtilitiesPage from './pages/DailyUtilitiesPage';
 import AppLayout from './components/AppLayout';
 import { Toaster } from '@/components/ui/sonner';
 
-export type Page = 'hub' | 'qr' | 'password' | 'image' | 'unit' | 'name' | 'text' | 'popular' | 'number';
+export type Page = 'hub' | 'qr' | 'password' | 'image' | 'unit' | 'name' | 'text' | 'popular' | 'number' | 'daily';
 
 function App() {
   const [currentPage, setCurrentPage] = useState<Page>('hub');
@@ -36,6 +37,8 @@ function App() {
         return <TextWritingToolsPage />;
       case 'number':
         return <NumberConversionToolsPage />;
+      case 'daily':
+        return <DailyUtilitiesPage />;
       default:
         return <HubPage onNavigate={setCurrentPage} />;
     }

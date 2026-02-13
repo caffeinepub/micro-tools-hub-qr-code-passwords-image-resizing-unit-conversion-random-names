@@ -1,27 +1,105 @@
 {
   "kind": "spec_vs_diff_report",
   "version": "1.0",
-  "generatedAt": "2026-02-13T22:35:51.939Z",
-  "summary": "Diff adds a new “Number & Conversion Tools” hub card, wires a new 'number' page into App routing, creates a new NumberConversionToolsPage with multiple tools in tabs, and introduces a shared lib module (numberTools.ts) containing calculation utilities (percentage, tip, split bill, age, date difference, and time parsing/formatting; additional converters/utilities appear to exist but are truncated).",
+  "generatedAt": "2026-02-13T23:56:51.305Z",
+  "summary": "Diff adds a new Daily Utilities hub card, wires a new 'daily' page id into App navigation, and introduces a new DailyUtilitiesPage plus a shared lib module (dailyUtilities.ts) with time/timer utilities. However, several acceptance-criteria behaviors for the 7 tools (Clear/Copy/Print/actions, alarm dismiss indication, shift validation, etc.) cannot be fully verified from the truncated diff.",
   "missing_requirements": [
     {
-      "id": "REQ-29",
-      "requirement": "Time duration calculator can compute duration between two times (with optional dates) and/or sum multiple durations.",
-      "reason": "The new page and shared lib show time start/end state and time parsing/formatting utilities, but there is no evidence in the provided diff summary of any UI or logic for summing multiple durations, nor any input model for multiple duration entries. The relevant parts of NumberConversionToolsPage.tsx are truncated before the time duration section completes.",
+      "id": "REQ-40",
+      "requirement": "Each tool has a clear way to reset inputs/state (e.g., a \"Clear\" button) where applicable.",
+      "reason": "DailyUtilitiesPage.tsx is truncated before tool UIs are fully shown; the diff summary does not provide evidence of Clear/reset controls per tool.",
       "evidence": [
-        "frontend/src/pages/NumberConversionToolsPage.tsx",
-        "frontend/src/lib/numberTools.ts"
+        "frontend/src/pages/DailyUtilitiesPage.tsx (truncated)"
+      ]
+    },
+    {
+      "id": "REQ-40",
+      "requirement": "For tools that produce a text output, a \"Copy\" action uses copyToClipboard from frontend/src/lib/clipboard.ts and shows the existing toast feedback.",
+      "reason": "DailyUtilitiesPage imports copyToClipboard, but the truncated content does not show the actual Copy button wiring for outputs (time zone, calendar, shift summary) or toast behavior.",
+      "evidence": [
+        "frontend/src/pages/DailyUtilitiesPage.tsx (truncated)"
+      ]
+    },
+    {
+      "id": "REQ-41",
+      "requirement": "Countdown timer: user can set a duration or target date/time; see remaining time update while running; can start/pause/reset.",
+      "reason": "Countdown update logic is shown, but the diff is truncated before the UI/actions for start/pause/reset (and any duration-based input alternative) are visible.",
+      "evidence": [
+        "frontend/src/pages/DailyUtilitiesPage.tsx (truncated)",
+        "frontend/src/lib/dailyUtilities.ts"
+      ]
+    },
+    {
+      "id": "REQ-41",
+      "requirement": "Stopwatch: user can start/pause/reset and see elapsed time formatted consistently.",
+      "reason": "Stopwatch effect is truncated; the diff summary does not show the complete start/pause/reset controls or formatted rendering usage.",
+      "evidence": [
+        "frontend/src/pages/DailyUtilitiesPage.tsx (truncated)",
+        "frontend/src/lib/dailyUtilities.ts"
+      ]
+    },
+    {
+      "id": "REQ-41",
+      "requirement": "Pomodoro timer: start/pause/reset; configurable work and break minutes; clearly indicates current phase (work/break).",
+      "reason": "State variables exist and utility function exists, but the truncated page content does not show the full UI/phase indication or phase switching logic.",
+      "evidence": [
+        "frontend/src/pages/DailyUtilitiesPage.tsx (truncated)",
+        "frontend/src/lib/dailyUtilities.ts"
+      ]
+    },
+    {
+      "id": "REQ-41",
+      "requirement": "Alarm: user can set a time (and optionally a date); when it triggers, a clear on-screen indication appears and can be dismissed; includes a way to clear/disable the alarm.",
+      "reason": "Alarm state and trigger helper exist, but the truncated diff does not show the on-screen triggered indication, dismiss action, or clear/disable controls.",
+      "evidence": [
+        "frontend/src/pages/DailyUtilitiesPage.tsx (truncated)",
+        "frontend/src/lib/dailyUtilities.ts"
+      ]
+    },
+    {
+      "id": "REQ-41",
+      "requirement": "Time zone difference checker: choose two time zones (at minimum via a curated list) and see current offset/difference and an example time conversion; includes Clear/reset.",
+      "reason": "A curated TIME_ZONES list and getTimeZoneOffset helper exist, but the truncated page content does not show the full UI, the Clear/reset control, or that an example conversion is presented (helper returns a text summary but UI not shown).",
+      "evidence": [
+        "frontend/src/lib/dailyUtilities.ts",
+        "frontend/src/pages/DailyUtilitiesPage.tsx (truncated)"
+      ]
+    },
+    {
+      "id": "REQ-41",
+      "requirement": "Simple calendar printer: user can choose month and year and generate a printable view; provides a \"Print\" action that uses the browser print flow.",
+      "reason": "generateCalendar is imported and calendar state exists, but the calendar generation function is truncated in the lib file and the page UI/Print action (e.g., window.print()) is not visible in the truncated page content.",
+      "evidence": [
+        "frontend/src/lib/dailyUtilities.ts (truncated)",
+        "frontend/src/pages/DailyUtilitiesPage.tsx (truncated)"
+      ]
+    },
+    {
+      "id": "REQ-41",
+      "requirement": "Shift / rota hours calculator: enter start and end date/time (and optionally breaks) and get total hours; handles overnight shifts and shows validation errors in English for invalid inputs.",
+      "reason": "calculateShiftHours is imported and shiftError state exists, but the implementation of calculateShiftHours is not shown (lib file truncated) and the validation/error messaging behavior cannot be verified.",
+      "evidence": [
+        "frontend/src/lib/dailyUtilities.ts (truncated)",
+        "frontend/src/pages/DailyUtilitiesPage.tsx (truncated)"
       ]
     }
   ],
-  "hallucinated_features": [],
-  "confidence": 0.64,
+  "hallucinated_features": [
+    {
+      "description": "Potential audible alarm via an HTMLAudioElement ref for the Alarm tool.",
+      "reason": "BuildRequest requires an on-screen indication and dismiss/clear controls, but does not request audio playback; the diff introduces alarmAudioRef suggesting an audio feature.",
+      "evidence": [
+        "frontend/src/pages/DailyUtilitiesPage.tsx (truncated): const alarmAudioRef = useRef<HTMLAudioElement | null>(null);"
+      ]
+    }
+  ],
+  "confidence": 0.58,
   "changed_files": [
     "frontend-file-summaries.txt",
     "frontend/src/App.tsx",
-    "frontend/src/lib/numberTools.ts",
+    "frontend/src/lib/dailyUtilities.ts",
+    "frontend/src/pages/DailyUtilitiesPage.tsx",
     "frontend/src/pages/HubPage.tsx",
-    "frontend/src/pages/NumberConversionToolsPage.tsx",
     "project_state.json"
   ]
 }

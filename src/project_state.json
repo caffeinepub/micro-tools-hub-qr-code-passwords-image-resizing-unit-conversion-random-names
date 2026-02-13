@@ -1,7 +1,7 @@
 {
   "schemaVersion": "1.0.0",
-  "projectStateVersion": 19,
-  "summary": "Micro tools hub app featuring existing tools plus a \"Text & Writing Tools\" section, AdSense placements, a \"Popular Tools\" entry on the home page linking to a combined page, and a new \"Number & Conversion Tools\" card/section that opens a page containing calculators and conversion utilities (percentage, tip, split bill, age/date/time calculations, unit/currency/base conversion, random number picker).",
+  "projectStateVersion": 25,
+  "summary": "Micro tools hub app featuring existing tools plus a \"Text & Writing Tools\" section, AdSense placements, a \"Popular Tools\" entry on the home page linking to a combined page, a \"Number & Conversion Tools\" card/section that opens a page containing calculators and conversion utilities, and a new \"Daily Utilities\" card/section that opens a page containing time and scheduling utilities (countdown timer, stopwatch, pomodoro timer, alarm, time zone difference checker, simple calendar printer, shift/rota hours calculator).",
   "architectural_notes": [
     "Monetization via ads: integrate Google AdSense (browser-side script) and render two ad slots (top and bottom banners) across the app or key pages.",
     "Publish an ads.txt file at the site root for AdSense authorization; include: google.com, pub-9284074903614668, DIRECT, f08c47fec0942fa0"
@@ -282,6 +282,46 @@
         "REQ-34"
       ],
       "version": 1
+    },
+    {
+      "id": "feature-update-the-tab-navigation-ui-so-the-tab-triggers-can-wrap-onto-multiple-lines-multi-row-instead-of-being-constrained-to-a-single-horizontal-line-including-on-small-screens-for-all-tabbed-tool-pages-that-currently-use-the-single-row-scrolling-tab-bar-at-minimum-text-writing-tools-and-number-conversion-tools-pages",
+      "title": "Update the tab navigation UI so the tab triggers can wrap onto multiple lines (multi-row) instead of being constrained to a single horizontal line, including on small screens, for all tabbed tool pages that currently use the single-row/scrolling tab bar (at minimum: Text & Writing Tools and Number & Conversion Tools pages).",
+      "reqIds": [
+        "REQ-35"
+      ],
+      "version": 1
+    },
+    {
+      "id": "feature-add-a-new-hub-card-titled-daily-utilities-on-the-main-hub-page-frontend-src-pages-hubpage-tsx-that-navigates-to-a-dedicated-daily-utilities-page-when-selected",
+      "title": "Add a new Hub card titled \"Daily Utilities\" on the main hub page (frontend/src/pages/HubPage.tsx) that navigates to a dedicated Daily Utilities page when selected.",
+      "reqIds": [
+        "REQ-38"
+      ],
+      "version": 1
+    },
+    {
+      "id": "feature-wire-a-new-daily-route-into-app-navigation-by-extending-the-page-union-and-route-switch-in-frontend-src-app-tsx-and-ensure-applayout-back-navigation-returns-to-the-hub-as-it-does-for-other-pages",
+      "title": "Wire a new \"daily\" route into app navigation by extending the Page union and route switch in frontend/src/App.tsx, and ensure AppLayout back navigation returns to the hub as it does for other pages.",
+      "reqIds": [
+        "REQ-39"
+      ],
+      "version": 1
+    },
+    {
+      "id": "feature-create-a-new-dedicated-page-component-for-daily-utilities-that-presents-the-requested-tools-on-a-single-page-using-a-responsive-tabbed-interface-consistent-with-existing-multi-tool-pages-e-g-uses-frontend-src-components-wrappingtabsheader-tsx-with-clear-input-output-sections-and-consistent-clear-copy-interactions-where-applicable-using-the-existing-copy-helper-frontend-src-lib-clipboard-ts",
+      "title": "Create a new dedicated page component for \"Daily Utilities\" that presents the requested tools on a single page using a responsive tabbed interface consistent with existing multi-tool pages (e.g., uses frontend/src/components/WrappingTabsHeader.tsx), with clear input/output sections and consistent Clear/Copy interactions where applicable using the existing copy helper (frontend/src/lib/clipboard.ts).",
+      "reqIds": [
+        "REQ-40"
+      ],
+      "version": 1
+    },
+    {
+      "id": "feature-implement-the-daily-utilities-tool-logic-entirely-on-the-frontend-no-backend-changes-and-add-shared-reusable-frontend-utility-functions-for-time-timer-scheduling-calculations-countdowns-stopwatch-formatting-pomodoro-cycles-time-zone-offset-comparisons-calendar-generation-and-shift-rota-hour-calculations-in-a-new-or-existing-lib-module",
+      "title": "Implement the Daily Utilities tool logic entirely on the frontend (no backend changes) and add shared, reusable frontend utility functions for time/timer scheduling calculations (countdowns, stopwatch formatting, pomodoro cycles, time zone offset comparisons, calendar generation, and shift/rota hour calculations) in a new or existing lib module.",
+      "reqIds": [
+        "REQ-41"
+      ],
+      "version": 1
     }
   ],
   "new_feature_requests": [
@@ -450,6 +490,82 @@
     {
       "id": "AR-28",
       "summary": "Add Random Number Picker tool",
+      "reqIds": [],
+      "status": "pending"
+    },
+    {
+      "id": "AR-29",
+      "summary": "Make tool tabs wrap onto multiple lines (multi-row) instead of a single-line tab bar (improve tab list responsiveness)",
+      "reqIds": [],
+      "status": "pending"
+    },
+    {
+      "id": "AR-30",
+      "summary": "Publish/deploy the current build to live (mainnet)",
+      "reqIds": [],
+      "status": "pending"
+    },
+    {
+      "id": "AR-31",
+      "summary": "Deploy the current application build to the Internet Computer mainnet (live) using the documented steps in frontend/DEPLOYMENT.md, ensuring the deployment targets the `ic` network and results in an updated live canister deployment.",
+      "reqIds": [
+        "REQ-36"
+      ],
+      "status": "pending"
+    },
+    {
+      "id": "AR-32",
+      "summary": "Perform a brief post-deploy verification checklist on mainnet to confirm core navigation and critical pages work (Hub, Popular Tools, Text & Writing Tools, Number & Conversion Tools), and that the top and bottom ad placeholder areas render in the layout.",
+      "reqIds": [
+        "REQ-37"
+      ],
+      "status": "pending"
+    },
+    {
+      "id": "AR-33",
+      "summary": "Add a \"Daily Utilities\" card on the hub that navigates to a dedicated page listing daily utility tools",
+      "reqIds": [],
+      "status": "pending"
+    },
+    {
+      "id": "AR-34",
+      "summary": "Add Countdown Timer tool",
+      "reqIds": [],
+      "status": "pending"
+    },
+    {
+      "id": "AR-35",
+      "summary": "Add Stopwatch tool",
+      "reqIds": [],
+      "status": "pending"
+    },
+    {
+      "id": "AR-36",
+      "summary": "Add Pomodoro Timer tool",
+      "reqIds": [],
+      "status": "pending"
+    },
+    {
+      "id": "AR-37",
+      "summary": "Add Alarm tool",
+      "reqIds": [],
+      "status": "pending"
+    },
+    {
+      "id": "AR-38",
+      "summary": "Add Time Zone Difference Checker tool",
+      "reqIds": [],
+      "status": "pending"
+    },
+    {
+      "id": "AR-39",
+      "summary": "Add Simple Calendar Printer tool",
+      "reqIds": [],
+      "status": "pending"
+    },
+    {
+      "id": "AR-40",
+      "summary": "Add Shift / Rota Hours Calculator tool",
       "reqIds": [],
       "status": "pending"
     }

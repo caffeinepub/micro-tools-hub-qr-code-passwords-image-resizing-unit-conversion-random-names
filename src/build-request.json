@@ -1,290 +1,103 @@
 {
   "kind": "build_request",
-  "title": "Add “Number & Conversion Tools” hub card and a dedicated tools page with calculators and converters",
+  "title": "Add Daily Utilities hub card and Daily Utilities tools page",
   "priority": "normal",
   "requirements": [
     {
-      "id": "REQ-21",
-      "text": "Add a new Hub card titled “Number & Conversion Tools” on the main hub page (frontend/src/pages/HubPage.tsx) that navigates to a dedicated Number & Conversion Tools page when selected.",
+      "id": "REQ-38",
+      "text": "Add a new Hub card titled \"Daily Utilities\" on the main hub page (frontend/src/pages/HubPage.tsx) that navigates to a dedicated Daily Utilities page when selected.",
       "target": "frontend",
       "source": {
         "messageIds": [
-          "msg-1"
+          "recent-messages-6"
         ],
         "quotes": [
-          "Please add a card called Number & Conversion Tools"
+          "Please add a card called Daily Utilities which has the following -\n\nCountdown timer\nStopwatch\nPomodoro timer\nAlarm\nTime zone difference checker\nSimple calendar printer\nShift / rota hours calculator"
         ]
       },
       "acceptanceCriteria": [
-        "The Hub page shows a new card labeled “Number & Conversion Tools”.",
-        "Clicking the card (or its “Open Tool” button) navigates to the dedicated Number & Conversion Tools page.",
-        "All user-facing text for this new card is in English."
+        "The Hub grid includes a card labeled \"Daily Utilities\".",
+        "Clicking the card navigates to the Daily Utilities page using the same onNavigate(Page) mechanism as other hub cards.",
+        "All user-facing text for the new card is in English."
       ]
     },
     {
-      "id": "REQ-22",
-      "text": "Wire the new “Number & Conversion Tools” page into application navigation by extending the Page union and route switch in frontend/src/App.tsx, and ensure AppLayout back navigation returns to the hub as it does for other pages.",
+      "id": "REQ-39",
+      "text": "Wire a new \"daily\" route into app navigation by extending the Page union and route switch in frontend/src/App.tsx, and ensure AppLayout back navigation returns to the hub as it does for other pages.",
       "target": "frontend",
       "source": {
         "messageIds": [
-          "msg-1"
+          "recent-messages-6"
         ],
         "quotes": [
-          "Please add a card called Number & Conversion Tools"
+          "Please add a card called Daily Utilities which has the following -\n\nCountdown timer\nStopwatch\nPomodoro timer\nAlarm\nTime zone difference checker\nSimple calendar printer\nShift / rota hours calculator"
         ]
       },
       "acceptanceCriteria": [
-        "The application has a new page route/state (e.g., Page value) for “Number & Conversion Tools”.",
-        "Navigating to the new page renders it inside the existing AppLayout.",
-        "The header back button appears on the new page and returns to the hub."
+        "App.tsx exports a Page union that includes a \"daily\" page id.",
+        "The main render switch in App.tsx renders the Daily Utilities page when currentPage is \"daily\".",
+        "When on the Daily Utilities page, the header back button returns to the hub (current behavior for non-hub pages)."
       ]
     },
     {
-      "id": "REQ-23",
-      "text": "Create a new dedicated page component for “Number & Conversion Tools” that presents all requested tools on a single page using a responsive tabbed interface (similar to frontend/src/pages/TextWritingToolsPage.tsx) with clear input/output sections, and consistent Clear/Copy interactions where applicable using the existing copy helper (frontend/src/lib/clipboard.ts).",
+      "id": "REQ-40",
+      "text": "Create a new dedicated page component for \"Daily Utilities\" that presents the requested tools on a single page using a responsive tabbed interface consistent with existing multi-tool pages (e.g., uses frontend/src/components/WrappingTabsHeader.tsx), with clear input/output sections and consistent Clear/Copy interactions where applicable using the existing copy helper (frontend/src/lib/clipboard.ts).",
       "target": "frontend",
       "source": {
         "messageIds": [
-          "msg-1"
+          "recent-messages-6"
         ],
         "quotes": [
-          "Please add a card called Number & Conversion Tools that has the following -\n\nPercentage calculator\nTip / gratuity calculator\nSplit bill calculator\nAge calculator\nDate difference calculator\nTime duration calculator\nUnit converters\nBinary / decimal / hex converter\nCurrency converter\nRandom number picker"
+          "Countdown timer\nStopwatch\nPomodoro timer\nAlarm\nTime zone difference checker\nSimple calendar printer\nShift / rota hours calculator"
         ]
       },
       "acceptanceCriteria": [
-        "A new “Number & Conversion Tools” page exists and is reachable from the Hub.",
-        "All 10 tools are available on this single page (not separate routes) and are selectable via tabs/sections.",
-        "The tool navigation UI is responsive and does not hide any tool tabs on small screens (wraps and/or allows horizontal scroll) while keeping labels in English.",
-        "Each tool that produces a result offers: (1) a Clear action, and (2) a Copy action where copying makes sense; Copy uses the shared toast-based clipboard feedback."
+        "A new Daily Utilities page component exists under frontend/src/pages and is rendered by App.tsx when navigating to \"daily\".",
+        "The page title and tool labels are in English.",
+        "The page uses tabs (with wrapping tab triggers) to expose at least these 7 tools: Countdown timer, Stopwatch, Pomodoro timer, Alarm, Time zone difference checker, Simple calendar printer, Shift / rota hours calculator.",
+        "Each tool has a clear way to reset inputs/state (e.g., a \"Clear\" button) where applicable.",
+        "For tools that produce a text output (e.g., time zone difference summary, calendar text output, shift hours summary), a \"Copy\" action uses copyToClipboard from frontend/src/lib/clipboard.ts and shows the existing toast feedback."
       ]
     },
     {
-      "id": "REQ-24",
-      "text": "Implement a “Percentage calculator” tool with inputs that cover common percentage operations and show results immediately: (a) “X% of Y”, (b) “What percent is X of Y”, and (c) “Percentage change from A to B”.",
+      "id": "REQ-41",
+      "text": "Implement the Daily Utilities tool logic entirely on the frontend (no backend changes) and add shared, reusable frontend utility functions for time/timer scheduling calculations (countdowns, stopwatch formatting, pomodoro cycles, time zone offset comparisons, calendar generation, and shift/rota hour calculations) in a new or existing lib module.",
       "target": "frontend",
       "source": {
         "messageIds": [
-          "msg-1"
+          "recent-messages-6"
         ],
         "quotes": [
-          "Percentage calculator"
+          "Countdown timer\nStopwatch\nPomodoro timer\nAlarm\nTime zone difference checker\nSimple calendar printer\nShift / rota hours calculator"
         ]
       },
       "acceptanceCriteria": [
-        "The Percentage tool supports computing X% of Y, computing X as a percent of Y, and percent change from A to B.",
-        "Invalid or empty inputs do not crash the UI; results are cleared or show a simple English validation message.",
-        "Results can be copied to clipboard via a Copy action."
-      ]
-    },
-    {
-      "id": "REQ-25",
-      "text": "Implement a “Tip / gratuity calculator” tool that computes tip amount and total based on bill amount and tip percentage, with an optional split count to show per-person amounts.",
-      "target": "frontend",
-      "source": {
-        "messageIds": [
-          "msg-1"
-        ],
-        "quotes": [
-          "Tip / gratuity calculator"
-        ]
-      },
-      "acceptanceCriteria": [
-        "User can enter bill amount and tip percentage to see tip and total.",
-        "If a split count is provided (>1), the UI also shows per-person tip and per-person total.",
-        "Results are displayed in a clear, English-labeled summary and can be copied (summary string)."
-      ]
-    },
-    {
-      "id": "REQ-26",
-      "text": "Implement a “Split bill calculator” tool that splits a total amount among N people, optionally allowing an additional fee or tax percentage and showing per-person amounts.",
-      "target": "frontend",
-      "source": {
-        "messageIds": [
-          "msg-1"
-        ],
-        "quotes": [
-          "Split bill calculator"
-        ]
-      },
-      "acceptanceCriteria": [
-        "User can input total amount and number of people and see per-person share.",
-        "If an optional tax/fee percentage is provided, the calculator includes it in the final total before splitting.",
-        "The tool provides Clear and Copy actions (copy a human-readable summary in English)."
-      ]
-    },
-    {
-      "id": "REQ-27",
-      "text": "Implement an “Age calculator” tool that accepts a date of birth and an optional “as of” date (defaulting to today) and outputs age in years (and additionally months/days breakdown if feasible within the UI).",
-      "target": "frontend",
-      "source": {
-        "messageIds": [
-          "msg-1"
-        ],
-        "quotes": [
-          "Age calculator"
-        ]
-      },
-      "acceptanceCriteria": [
-        "User can pick/enter a date of birth and optionally an “as of” date; default is the current local date.",
-        "The tool outputs an age result in English (at minimum years; optionally also months and days).",
-        "Invalid date input shows an English validation message and no incorrect calculations are shown."
-      ]
-    },
-    {
-      "id": "REQ-28",
-      "text": "Implement a “Date difference calculator” tool that accepts two calendar dates and outputs the difference in days (and additionally weeks/months/years breakdown if feasible), with clear handling for which date is earlier.",
-      "target": "frontend",
-      "source": {
-        "messageIds": [
-          "msg-1"
-        ],
-        "quotes": [
-          "Date difference calculator"
-        ]
-      },
-      "acceptanceCriteria": [
-        "User can provide a start date and end date and see a computed difference in days.",
-        "The result is correct regardless of which date is earlier (the UI may also show direction, e.g., “Start is before end”, but must be in English).",
-        "The result can be copied to clipboard."
-      ]
-    },
-    {
-      "id": "REQ-29",
-      "text": "Implement a “Time duration calculator” tool that can compute duration between two times (with optional dates) and/or sum multiple durations, and outputs a normalized duration (e.g., hours/minutes/seconds).",
-      "target": "frontend",
-      "source": {
-        "messageIds": [
-          "msg-1"
-        ],
-        "quotes": [
-          "Time duration calculator"
-        ]
-      },
-      "acceptanceCriteria": [
-        "The tool provides a straightforward flow to compute a duration and shows a normalized result (e.g., total seconds and HH:MM:SS).",
-        "If inputs are invalid, the UI shows an English validation message and does not crash.",
-        "The duration result can be copied to clipboard."
-      ]
-    },
-    {
-      "id": "REQ-30",
-      "text": "Include “Unit converters” in the Number & Conversion Tools page by reusing the existing unit conversion logic (frontend/src/lib/units.ts) and providing an embedded unit converter UI similar in capability to the existing Unit Converter page.",
-      "target": "frontend",
-      "source": {
-        "messageIds": [
-          "msg-1"
-        ],
-        "quotes": [
-          "Unit converters"
-        ]
-      },
-      "acceptanceCriteria": [
-        "The Number & Conversion Tools page contains a Unit Converter section/tool that uses the existing conversion categories and functions.",
-        "The embedded converter supports selecting category, from/to units, entering a value, and viewing the computed result.",
-        "The embedded converter is usable on mobile and desktop and uses English labels."
-      ]
-    },
-    {
-      "id": "REQ-31",
-      "text": "Implement a “Binary / decimal / hex converter” tool that converts numbers between bases 2, 10, and 16, validates input based on selected base, and outputs the other representations.",
-      "target": "frontend",
-      "source": {
-        "messageIds": [
-          "msg-1"
-        ],
-        "quotes": [
-          "Binary / decimal / hex converter"
-        ]
-      },
-      "acceptanceCriteria": [
-        "User can enter a number and select/indicate its base (binary, decimal, hex).",
-        "The tool outputs the equivalent values in the other bases.",
-        "Invalid characters for the selected base show an English validation message; output is cleared rather than showing incorrect results.",
-        "Each output representation can be copied to clipboard (or a single Copy action copies all in a readable format)."
-      ]
-    },
-    {
-      "id": "REQ-32",
-      "text": "Implement a “Currency converter” tool that converts between currencies without relying on external APIs by allowing the user to either (a) enter a custom exchange rate, or (b) maintain a small editable table of rates relative to a chosen base currency, then compute conversions based on those inputs.",
-      "target": "frontend",
-      "source": {
-        "messageIds": [
-          "msg-1"
-        ],
-        "quotes": [
-          "Currency converter"
-        ]
-      },
-      "acceptanceCriteria": [
-        "The Currency Converter does not call any external exchange-rate API.",
-        "User can convert an amount between two selected currencies using user-provided rate(s).",
-        "The tool clearly labels how rates are interpreted (in English) and provides input validation for non-numeric values.",
-        "The conversion result can be copied to clipboard."
-      ]
-    },
-    {
-      "id": "REQ-33",
-      "text": "Implement a “Random number picker” tool that generates one or more random integers within a user-defined inclusive range, with options for quantity and (optionally) uniqueness when the range allows it.",
-      "target": "frontend",
-      "source": {
-        "messageIds": [
-          "msg-1"
-        ],
-        "quotes": [
-          "Random number picker"
-        ]
-      },
-      "acceptanceCriteria": [
-        "User can set min and max values and generate random integer(s) within the inclusive range.",
-        "User can set a quantity to generate multiple numbers; if “unique” is enabled, the tool prevents impossible requests (e.g., more unique numbers than range size) with an English error message.",
-        "Generated numbers are displayed clearly and can be copied to clipboard (either individually or as a combined list)."
-      ]
-    },
-    {
-      "id": "REQ-34",
-      "text": "Add shared, reusable frontend utility functions to support the Number & Conversion Tools calculations (percent math, date/time differences, base conversion, random number generation) in a new or existing lib module, and ensure consistent formatting and validation across tools.",
-      "target": "frontend",
-      "source": {
-        "messageIds": [
-          "msg-1"
-        ],
-        "quotes": [
-          "Percentage calculator\nTip / gratuity calculator\nSplit bill calculator\nAge calculator\nDate difference calculator\nTime duration calculator\nBinary / decimal / hex converter\nCurrency converter\nRandom number picker"
-        ]
-      },
-      "acceptanceCriteria": [
-        "Core calculator/conversion logic is encapsulated in reusable functions under frontend/src/lib (new file(s) are acceptable).",
-        "UI components call the shared functions rather than duplicating complex logic inline.",
-        "Utilities include basic input validation helpers so tools behave consistently (English error messages handled at the UI layer)."
+        "No changes are required in backend/main.mo (the backend remains unused for these tools).",
+        "Shared utility functions are created/reused from a lib module rather than embedding all calculation logic directly inside the page component.",
+        "Countdown timer: user can set a duration or target date/time and see remaining time update while running; can start/pause/reset.",
+        "Stopwatch: user can start/pause/reset and see elapsed time formatted consistently; (optional) laps if implemented must have a clear way to clear.",
+        "Pomodoro timer: user can start/pause/reset and configure at minimum work minutes and break minutes; clearly indicates current phase (work/break).",
+        "Alarm: user can set a time (and optionally a date); when it triggers, a clear on-screen indication appears and can be dismissed; includes a way to clear/disable the alarm.",
+        "Time zone difference checker: user can choose two time zones (at minimum via a curated list) and see the current offset/difference and an example time conversion; includes Clear/reset.",
+        "Simple calendar printer: user can choose month and year and generate a printable view; provides a \"Print\" action that uses the browser print flow.",
+        "Shift / rota hours calculator: user can enter at minimum start and end date/time (and optionally breaks) and get total hours; handles overnight shifts and shows validation errors in English for invalid inputs."
       ]
     }
   ],
   "constraints": [
-    "Frontend must remain within the existing React + TypeScript + Tailwind + shadcn/ui stack.",
-    "Do not modify files under frontend/src/components/ui (read-only components must be composed, not edited).",
-    "Do not modify files listed as immutable paths in SYSTEM_CONTEXT (e.g., frontend/src/hooks/useInternetIdentity.ts(x), frontend/src/hooks/useActor.ts, frontend/src/main.tsx).",
-    "Backend is single-actor Motoko; however, these tools should be frontend-only unless a concrete backend need is identified.",
-    "Use English for all user-facing text.",
-    "Currency conversion must not depend on third-party APIs/services."
+    "Frontend immutable paths must not be edited: frontend/src/hooks/useInternetIdentity.ts, frontend/src/hooks/useInternetIdentity.tsx, frontend/src/hooks/useActor.ts, frontend/src/main.tsx, frontend/src/components/ui.",
+    "Keep all user-facing text in English.",
+    "Do not add any external APIs or services for time zones or calendars; implement locally in the frontend.",
+    "Backend must remain single-actor; no backend work is required for these frontend-only utilities."
   ],
   "nonGoals": [
-    "Implementing real-time or automatically-updating currency exchange rates from external providers.",
-    "Adding third-party authentication providers (only Internet Identity is supported).",
-    "Persisting user calculator configurations to a database or external storage.",
-    "Creating separate routes/pages for each individual number/conversion tool (all requested tools should live on the single dedicated page)."
+    "Do not add Internet Identity/authentication changes.",
+    "Do not add persistence/saving of alarms or timers across sessions unless explicitly requested.",
+    "Do not integrate third-party time zone or calendar libraries/services beyond what is already in the project dependencies.",
+    "Do not change existing ad placements or AdSense script behavior."
   ],
   "imageRequirements": {
     "required": [],
     "edits": []
-  },
-  "userProfileUpdate": {
-    "goalsToAdd": [],
-    "goalsToRemove": [],
-    "preferencesToAdd": [],
-    "preferencesToRemove": [],
-    "miscToAdd": [],
-    "miscToRemove": [],
-    "fieldsToSet": {},
-    "fieldsToDelete": []
   }
 }

@@ -4,7 +4,7 @@ import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
-import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
+import { Tabs, TabsContent } from '@/components/ui/tabs';
 import { Switch } from '@/components/ui/switch';
 import { Copy, Trash2, Shuffle } from 'lucide-react';
 import { copyToClipboard } from '@/lib/clipboard';
@@ -25,6 +25,20 @@ import {
   generateRandomNumbers,
 } from '@/lib/numberTools';
 import { categories, convert, type Category } from '@/lib/units';
+import { WrappingTabsHeader } from '@/components/WrappingTabsHeader';
+
+const tabs = [
+  { value: 'percentage', label: 'Percentage' },
+  { value: 'tip', label: 'Tip' },
+  { value: 'split', label: 'Split Bill' },
+  { value: 'age', label: 'Age' },
+  { value: 'date', label: 'Date Diff' },
+  { value: 'time', label: 'Time' },
+  { value: 'unit', label: 'Units' },
+  { value: 'base', label: 'Base' },
+  { value: 'currency', label: 'Currency' },
+  { value: 'random', label: 'Random' },
+];
 
 export default function NumberConversionToolsPage() {
   // Percentage Calculator
@@ -141,19 +155,8 @@ export default function NumberConversionToolsPage() {
       </div>
 
       <Tabs defaultValue="percentage" className="w-full">
-        <div className="overflow-x-auto mb-6 -mx-4 px-4 sm:mx-0 sm:px-0">
-          <TabsList className="inline-flex h-auto min-w-full w-max sm:w-full flex-nowrap sm:flex-wrap justify-start sm:justify-center gap-1 p-1">
-            <TabsTrigger value="percentage" className="whitespace-nowrap">Percentage</TabsTrigger>
-            <TabsTrigger value="tip" className="whitespace-nowrap">Tip</TabsTrigger>
-            <TabsTrigger value="split" className="whitespace-nowrap">Split Bill</TabsTrigger>
-            <TabsTrigger value="age" className="whitespace-nowrap">Age</TabsTrigger>
-            <TabsTrigger value="date" className="whitespace-nowrap">Date Diff</TabsTrigger>
-            <TabsTrigger value="time" className="whitespace-nowrap">Time</TabsTrigger>
-            <TabsTrigger value="unit" className="whitespace-nowrap">Units</TabsTrigger>
-            <TabsTrigger value="base" className="whitespace-nowrap">Base</TabsTrigger>
-            <TabsTrigger value="currency" className="whitespace-nowrap">Currency</TabsTrigger>
-            <TabsTrigger value="random" className="whitespace-nowrap">Random</TabsTrigger>
-          </TabsList>
+        <div className="mb-6">
+          <WrappingTabsHeader tabs={tabs} />
         </div>
 
         {/* Percentage Calculator */}
@@ -463,13 +466,13 @@ export default function NumberConversionToolsPage() {
                     </>
                   )}
                   <div className="flex justify-between">
-                    <span className="text-muted-foreground">Final Total:</span>
+                    <span className="text-muted-foreground">Total:</span>
                     <span className="font-semibold">${splitResult.finalTotal.toFixed(2)}</span>
                   </div>
                   <div className="border-t pt-2 mt-2">
                     <div className="flex justify-between">
                       <span className="text-muted-foreground">Per Person:</span>
-                      <span className="text-xl font-bold text-primary">${splitResult.perPerson.toFixed(2)}</span>
+                      <span className="font-bold text-lg text-primary">${splitResult.perPerson.toFixed(2)}</span>
                     </div>
                   </div>
                 </div>
@@ -480,7 +483,7 @@ export default function NumberConversionToolsPage() {
                   onClick={() => {
                     if (splitResult) {
                       const summary = splitResult.taxAmount > 0
-                        ? `Subtotal: $${splitResult.subtotal.toFixed(2)}\nTax/Fee: $${splitResult.taxAmount.toFixed(2)}\nTotal: $${splitResult.finalTotal.toFixed(2)}\nPer Person: $${splitResult.perPerson.toFixed(2)}`
+                        ? `Subtotal: $${splitResult.subtotal.toFixed(2)}\nTax: $${splitResult.taxAmount.toFixed(2)}\nTotal: $${splitResult.finalTotal.toFixed(2)}\nPer Person: $${splitResult.perPerson.toFixed(2)}`
                         : `Total: $${splitResult.finalTotal.toFixed(2)}\nPer Person: $${splitResult.perPerson.toFixed(2)}`;
                       copyToClipboard(summary);
                     }
@@ -526,7 +529,7 @@ export default function NumberConversionToolsPage() {
               </div>
 
               <div>
-                <Label htmlFor="age-asof">As Of Date</Label>
+                <Label htmlFor="age-asof">Calculate Age As Of</Label>
                 <Input
                   id="age-asof"
                   type="date"
@@ -537,34 +540,36 @@ export default function NumberConversionToolsPage() {
               </div>
 
               {ageResult && (
-                <div className="bg-muted p-4 rounded-lg">
-                  {ageResult.error ? (
-                    <div className="text-destructive">{ageResult.error}</div>
-                  ) : (
-                    <div className="space-y-2">
-                      <div className="text-3xl font-bold text-primary">
-                        {ageResult.years} {ageResult.years === 1 ? 'year' : 'years'}
-                      </div>
-                      <div className="text-sm text-muted-foreground">
-                        {ageResult.months} {ageResult.months === 1 ? 'month' : 'months'}, {ageResult.days} {ageResult.days === 1 ? 'day' : 'days'}
-                      </div>
+                <div className="bg-muted p-4 rounded-lg space-y-2">
+                  <div className="text-center">
+                    <div className="text-4xl font-bold text-primary">{ageResult.years}</div>
+                    <div className="text-sm text-muted-foreground">Years Old</div>
+                  </div>
+                  <div className="grid grid-cols-2 gap-4 mt-4">
+                    <div className="text-center">
+                      <div className="text-2xl font-semibold">{ageResult.months}</div>
+                      <div className="text-xs text-muted-foreground">Months</div>
                     </div>
-                  )}
+                    <div className="text-center">
+                      <div className="text-2xl font-semibold">{ageResult.days}</div>
+                      <div className="text-xs text-muted-foreground">Days</div>
+                    </div>
+                  </div>
                 </div>
               )}
 
               <div className="flex gap-2">
                 <Button
                   onClick={() => {
-                    if (ageResult && !ageResult.error) {
-                      copyToClipboard(`${ageResult.years} years, ${ageResult.months} months, ${ageResult.days} days`);
+                    if (ageResult) {
+                      copyToClipboard(`Age: ${ageResult.years} years, ${ageResult.months} months, ${ageResult.days} days`);
                     }
                   }}
-                  disabled={!ageResult || !!ageResult.error}
+                  disabled={!ageResult}
                   className="flex-1"
                 >
                   <Copy className="h-4 w-4 mr-2" />
-                  Copy Result
+                  Copy Age
                 </Button>
                 <Button
                   variant="outline"
@@ -611,34 +616,29 @@ export default function NumberConversionToolsPage() {
               </div>
 
               {dateDiffResult && (
-                <div className="bg-muted p-4 rounded-lg">
-                  {dateDiffResult.error ? (
-                    <div className="text-destructive">{dateDiffResult.error}</div>
-                  ) : (
-                    <div className="space-y-2">
-                      <div className="text-3xl font-bold text-primary">
-                        {dateDiffResult.days} {dateDiffResult.days === 1 ? 'day' : 'days'}
-                      </div>
-                      <div className="text-sm text-muted-foreground">
-                        {dateDiffResult.direction}
-                      </div>
-                    </div>
-                  )}
+                <div className="bg-muted p-4 rounded-lg space-y-2">
+                  <div className="text-center">
+                    <div className="text-4xl font-bold text-primary">{dateDiffResult.days}</div>
+                    <div className="text-sm text-muted-foreground">Days</div>
+                  </div>
+                  <div className="text-center text-sm text-muted-foreground mt-2">
+                    {dateDiffResult.direction}
+                  </div>
                 </div>
               )}
 
               <div className="flex gap-2">
                 <Button
                   onClick={() => {
-                    if (dateDiffResult && !dateDiffResult.error) {
+                    if (dateDiffResult) {
                       copyToClipboard(`${dateDiffResult.days} days (${dateDiffResult.direction})`);
                     }
                   }}
-                  disabled={!dateDiffResult || !!dateDiffResult.error}
+                  disabled={!dateDiffResult}
                   className="flex-1"
                 >
                   <Copy className="h-4 w-4 mr-2" />
-                  Copy Result
+                  Copy Difference
                 </Button>
                 <Button
                   variant="outline"
@@ -663,11 +663,10 @@ export default function NumberConversionToolsPage() {
             </CardHeader>
             <CardContent className="space-y-4">
               <div>
-                <Label htmlFor="time-start">Start Time (HH:MM or HH:MM:SS)</Label>
+                <Label htmlFor="time-start">Start Time</Label>
                 <Input
                   id="time-start"
-                  type="text"
-                  placeholder="09:00"
+                  type="time"
                   value={timeStart}
                   onChange={(e) => setTimeStart(e.target.value)}
                   className="mt-1"
@@ -675,11 +674,10 @@ export default function NumberConversionToolsPage() {
               </div>
 
               <div>
-                <Label htmlFor="time-end">End Time (HH:MM or HH:MM:SS)</Label>
+                <Label htmlFor="time-end">End Time</Label>
                 <Input
                   id="time-end"
-                  type="text"
-                  placeholder="17:30"
+                  type="time"
                   value={timeEnd}
                   onChange={(e) => setTimeEnd(e.target.value)}
                   className="mt-1"
@@ -687,34 +685,29 @@ export default function NumberConversionToolsPage() {
               </div>
 
               {timeDurationResult && (
-                <div className="bg-muted p-4 rounded-lg">
-                  {timeDurationResult.error ? (
-                    <div className="text-destructive">{timeDurationResult.error}</div>
-                  ) : (
-                    <div className="space-y-2">
-                      <div className="text-3xl font-bold text-primary">
-                        {timeDurationResult.formatted}
-                      </div>
-                      <div className="text-sm text-muted-foreground">
-                        Total: {timeDurationResult.totalSeconds} seconds
-                      </div>
-                    </div>
-                  )}
+                <div className="bg-muted p-4 rounded-lg space-y-2">
+                  <div className="text-center">
+                    <div className="text-3xl font-bold text-primary">{timeDurationResult.formatted}</div>
+                    <div className="text-sm text-muted-foreground mt-2">Duration (HH:MM:SS)</div>
+                  </div>
+                  <div className="text-center text-sm text-muted-foreground mt-2">
+                    Total: {timeDurationResult.totalSeconds} seconds
+                  </div>
                 </div>
               )}
 
               <div className="flex gap-2">
                 <Button
                   onClick={() => {
-                    if (timeDurationResult && !timeDurationResult.error) {
-                      copyToClipboard(`${timeDurationResult.formatted} (${timeDurationResult.totalSeconds} seconds)`);
+                    if (timeDurationResult) {
+                      copyToClipboard(timeDurationResult.formatted);
                     }
                   }}
-                  disabled={!timeDurationResult || !!timeDurationResult.error}
+                  disabled={!timeDurationResult}
                   className="flex-1"
                 >
                   <Copy className="h-4 w-4 mr-2" />
-                  Copy Result
+                  Copy Duration
                 </Button>
                 <Button
                   variant="outline"
@@ -751,7 +744,7 @@ export default function NumberConversionToolsPage() {
                   </SelectTrigger>
                   <SelectContent>
                     <SelectItem value="length">Length</SelectItem>
-                    <SelectItem value="weight">Weight / Mass</SelectItem>
+                    <SelectItem value="weight">Weight</SelectItem>
                     <SelectItem value="temperature">Temperature</SelectItem>
                     <SelectItem value="volume">Volume</SelectItem>
                   </SelectContent>
@@ -842,7 +835,7 @@ export default function NumberConversionToolsPage() {
         <TabsContent value="base">
           <Card>
             <CardHeader>
-              <CardTitle>Binary / Decimal / Hex Converter</CardTitle>
+              <CardTitle>Base Converter (Binary, Decimal, Hex)</CardTitle>
             </CardHeader>
             <CardContent className="space-y-4">
               <div>
@@ -863,11 +856,10 @@ export default function NumberConversionToolsPage() {
                 <Label htmlFor="base-input">Input Value</Label>
                 <Input
                   id="base-input"
-                  type="text"
                   placeholder={baseFrom === 2 ? '1010' : baseFrom === 16 ? 'A' : '10'}
                   value={baseInput}
                   onChange={(e) => setBaseInput(e.target.value.toUpperCase())}
-                  className="mt-1"
+                  className="mt-1 font-mono"
                 />
                 {!baseValidation.valid && baseInput && (
                   <p className="text-sm text-destructive mt-1">{baseValidation.error}</p>
@@ -877,16 +869,16 @@ export default function NumberConversionToolsPage() {
               {baseResults && (
                 <div className="space-y-3">
                   <div className="bg-muted p-3 rounded-lg">
-                    <div className="text-sm text-muted-foreground">Binary:</div>
-                    <div className="font-mono text-lg font-semibold">{baseResults.binary}</div>
+                    <div className="text-sm text-muted-foreground">Binary (Base 2):</div>
+                    <div className="text-lg font-mono font-semibold">{baseResults.binary}</div>
                   </div>
                   <div className="bg-muted p-3 rounded-lg">
-                    <div className="text-sm text-muted-foreground">Decimal:</div>
-                    <div className="font-mono text-lg font-semibold">{baseResults.decimal}</div>
+                    <div className="text-sm text-muted-foreground">Decimal (Base 10):</div>
+                    <div className="text-lg font-mono font-semibold">{baseResults.decimal}</div>
                   </div>
                   <div className="bg-muted p-3 rounded-lg">
-                    <div className="text-sm text-muted-foreground">Hexadecimal:</div>
-                    <div className="font-mono text-lg font-semibold">{baseResults.hex}</div>
+                    <div className="text-sm text-muted-foreground">Hexadecimal (Base 16):</div>
+                    <div className="text-lg font-mono font-semibold">{baseResults.hex}</div>
                   </div>
                 </div>
               )}
@@ -923,10 +915,6 @@ export default function NumberConversionToolsPage() {
               <CardTitle>Currency Converter</CardTitle>
             </CardHeader>
             <CardContent className="space-y-4">
-              <div className="bg-blue-50 dark:bg-blue-950/30 p-3 rounded-lg text-sm text-blue-900 dark:text-blue-100">
-                Enter your own exchange rate. Rate represents how many units of "To" currency equal 1 unit of "From" currency.
-              </div>
-
               <div>
                 <Label htmlFor="currency-amount">Amount</Label>
                 <Input
@@ -944,7 +932,6 @@ export default function NumberConversionToolsPage() {
                   <Label htmlFor="currency-from">From</Label>
                   <Input
                     id="currency-from"
-                    type="text"
                     placeholder="USD"
                     value={currencyFrom}
                     onChange={(e) => setCurrencyFrom(e.target.value.toUpperCase())}
@@ -956,7 +943,6 @@ export default function NumberConversionToolsPage() {
                   <Label htmlFor="currency-to">To</Label>
                   <Input
                     id="currency-to"
-                    type="text"
                     placeholder="EUR"
                     value={currencyTo}
                     onChange={(e) => setCurrencyTo(e.target.value.toUpperCase())}
@@ -991,7 +977,7 @@ export default function NumberConversionToolsPage() {
                 <Button
                   onClick={() => {
                     if (currencyResult !== null) {
-                      copyToClipboard(`${parseFloat(currencyAmount).toFixed(2)} ${currencyFrom} = ${currencyResult.toFixed(2)} ${currencyTo}`);
+                      copyToClipboard(`${currencyResult.toFixed(2)} ${currencyTo}`);
                     }
                   }}
                   disabled={currencyResult === null}
@@ -1021,7 +1007,7 @@ export default function NumberConversionToolsPage() {
         <TabsContent value="random">
           <Card>
             <CardHeader>
-              <CardTitle>Random Number Picker</CardTitle>
+              <CardTitle>Random Number Generator</CardTitle>
             </CardHeader>
             <CardContent className="space-y-4">
               <div className="grid grid-cols-2 gap-3">
@@ -1051,7 +1037,7 @@ export default function NumberConversionToolsPage() {
               </div>
 
               <div>
-                <Label htmlFor="random-count">Quantity</Label>
+                <Label htmlFor="random-count">How Many Numbers?</Label>
                 <Input
                   id="random-count"
                   type="number"
@@ -1070,65 +1056,42 @@ export default function NumberConversionToolsPage() {
                   onCheckedChange={setRandomUnique}
                 />
                 <Label htmlFor="random-unique" className="cursor-pointer">
-                  Generate unique numbers only
+                  Generate unique numbers (no duplicates)
                 </Label>
               </div>
 
-              {randomUnique && parseInt(randomCount) > (parseInt(randomMax) - parseInt(randomMin) + 1) && (
-                <p className="text-sm text-destructive">
-                  Cannot generate {randomCount} unique numbers in range {randomMin}–{randomMax}
-                </p>
-              )}
-
-              <Button
-                onClick={handleGenerateRandom}
-                disabled={
-                  !randomMin || !randomMax || !randomCount ||
-                  parseInt(randomMin) > parseInt(randomMax) ||
-                  (randomUnique && parseInt(randomCount) > (parseInt(randomMax) - parseInt(randomMin) + 1))
-                }
-                className="w-full"
-              >
+              <Button onClick={handleGenerateRandom} className="w-full">
                 <Shuffle className="h-4 w-4 mr-2" />
                 Generate Random Numbers
               </Button>
 
               {randomResults.length > 0 && (
-                <div className="bg-muted p-4 rounded-lg">
-                  <div className="text-sm text-muted-foreground mb-2">Generated Numbers:</div>
-                  <div className="flex flex-wrap gap-2">
-                    {randomResults.map((num, idx) => (
-                      <div key={idx} className="bg-background px-3 py-2 rounded font-mono font-semibold">
-                        {num}
-                      </div>
-                    ))}
+                <>
+                  <div className="bg-muted p-4 rounded-lg">
+                    <div className="text-sm text-muted-foreground mb-2">Generated Numbers:</div>
+                    <div className="text-2xl font-bold text-primary">
+                      {randomResults.join(', ')}
+                    </div>
                   </div>
-                </div>
-              )}
 
-              <div className="flex gap-2">
-                <Button
-                  onClick={() => copyToClipboard(randomResults.join(', '))}
-                  disabled={randomResults.length === 0}
-                  className="flex-1"
-                >
-                  <Copy className="h-4 w-4 mr-2" />
-                  Copy Numbers
-                </Button>
-                <Button
-                  variant="outline"
-                  onClick={() => {
-                    setRandomResults([]);
-                    setRandomMin('1');
-                    setRandomMax('100');
-                    setRandomCount('1');
-                    setRandomUnique(false);
-                  }}
-                >
-                  <Trash2 className="h-4 w-4 mr-2" />
-                  Clear
-                </Button>
-              </div>
+                  <div className="flex gap-2">
+                    <Button
+                      onClick={() => copyToClipboard(randomResults.join(', '))}
+                      className="flex-1"
+                    >
+                      <Copy className="h-4 w-4 mr-2" />
+                      Copy Numbers
+                    </Button>
+                    <Button
+                      variant="outline"
+                      onClick={() => setRandomResults([])}
+                    >
+                      <Trash2 className="h-4 w-4 mr-2" />
+                      Clear
+                    </Button>
+                  </div>
+                </>
+              )}
             </CardContent>
           </Card>
         </TabsContent>

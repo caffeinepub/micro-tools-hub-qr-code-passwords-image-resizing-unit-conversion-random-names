@@ -12,6 +12,14 @@ interface AppLayoutProps {
 export default function AppLayout({ children, currentPage, onNavigate }: AppLayoutProps) {
   const isHub = currentPage === 'hub';
 
+  // Generate UTM tracking params for caffeine.ai attribution
+  const getAttributionUrl = () => {
+    const appIdentifier = typeof window !== 'undefined' 
+      ? encodeURIComponent(window.location.hostname)
+      : 'unknown-app';
+    return `https://caffeine.ai/?utm_source=Caffeine-footer&utm_medium=referral&utm_content=${appIdentifier}`;
+  };
+
   return (
     <div className="min-h-screen bg-background flex flex-col">
       <header className="border-b border-border bg-card/50 backdrop-blur-sm sticky top-0 z-50">
@@ -64,7 +72,7 @@ export default function AppLayout({ children, currentPage, onNavigate }: AppLayo
           <p>
             © {new Date().getFullYear()}. Built with love using{' '}
             <a
-              href="https://caffeine.ai"
+              href={getAttributionUrl()}
               target="_blank"
               rel="noopener noreferrer"
               className="text-primary hover:underline font-medium"
