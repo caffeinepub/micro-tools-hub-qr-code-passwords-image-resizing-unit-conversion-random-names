@@ -1,7 +1,7 @@
 {
-  "frontend/src/App.tsx": "Main application component managing page navigation state and rendering the appropriate tool page based on user selection.",
+  "frontend/src/App.tsx": "Main application component managing page navigation state including the new 'number' page for Number & Conversion Tools and rendering the appropriate tool page based on user selection.",
   "frontend/src/components/AppLayout.tsx": "Shared layout component providing consistent header with back navigation, branding, top and bottom ad banner placement areas, and footer with dynamic copyright year across all pages.",
-  "frontend/src/pages/HubPage.tsx": "Landing page displaying all five tools as interactive cards with icons, descriptions, and navigation to each tool.",
+  "frontend/src/pages/HubPage.tsx": "Updated landing page displaying three tool cards: Popular Tools, Text & Writing Tools, and Number & Conversion Tools, with navigation to each respective page.",
   "frontend/src/pages/QrCodePage.tsx": "QR code generator tool with live text/URL input, validation, canvas-based preview, and PNG download functionality.",
   "frontend/src/pages/PasswordPage.tsx": "Password generator with configurable length and character set options, secure random generation, and clipboard copy with toast notifications.",
   "frontend/src/pages/ImageResizerPage.tsx": "Image resizer tool supporting PNG/JPEG upload, width/height controls with aspect ratio lock, preview comparison, and download.",
@@ -17,5 +17,12 @@
   "frontend/src/hooks/useQueries.ts": "Minimal queries file as all tools are frontend-only with no backend interaction required.",
   "frontend/src/index.css": "Global styles with warm amber/orange OKLCH color palette for both light and dark modes, avoiding blue/purple tones.",
   "frontend/index.html": "HTML entry point with Google AdSense script loaded in the head section for ad monetization across the application.",
-  "frontend/DEPLOYMENT.md": "Comprehensive deployment guide for publishing the application to Internet Computer mainnet, including prerequisites installation/verification, step-by-step deployment commands with network selection, canister management, and a detailed post-deploy verification checklist covering app functionality, navigation, all five tools, and AdSense integration."
+  "frontend/DEPLOYMENT.md": "Comprehensive deployment guide for publishing the application to Internet Computer mainnet, including prerequisites installation/verification, step-by-step deployment commands with network selection, canister management, and a detailed post-deploy verification checklist covering app functionality, navigation, all five tools, and AdSense integration.",
+  "frontend/public/ads.txt": "Static ads.txt file containing the Google AdSense publisher record for ad monetization verification.",
+  "frontend/src/lib/textTools.ts": "Reusable text transformation utilities including case conversion, text counting, duplicate removal, sorting, paragraph formatting, slug generation, lorem ipsum generation, and hashtag generation.",
+  "frontend/src/lib/clipboard.ts": "Reusable clipboard helper that wraps navigator.clipboard.writeText with consistent toast feedback for success and failure states.",
+  "frontend/src/pages/TextWritingToolsPage.tsx": "Comprehensive text utilities page with nine tools organized in horizontally scrollable tabs on mobile and wrapped tabs on desktop: case converter, word/character counter, duplicate line remover, text sorter, paragraph formatter, slug generator, lorem ipsum generator, hashtag generator (with space-separated output), and emoji picker with copy functionality.",
+  "frontend/src/pages/PopularToolsPage.tsx": "New page that combines all five popular tools (QR Code, Password, Image Resizer, Unit Converter, Random Name) on a single scrollable page with section headers and separators for easy access without navigation.",
+  "frontend/src/pages/NumberConversionToolsPage.tsx": "Comprehensive number and conversion tools page with ten calculators/converters organized in horizontally scrollable tabs: percentage, tip, split bill, age, date difference, time duration, unit converter, base converter, currency converter, and random number picker, all with clear/copy functionality.",
+  "frontend/src/lib/numberTools.ts": "Reusable calculation utilities for percentage math, tip/split bill calculations, age/date/time computations, base conversions (binary/decimal/hex), currency conversion, and random number generation with validation helpers."
 }

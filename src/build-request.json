@@ -1,36 +1,277 @@
 {
   "kind": "build_request",
-  "title": "Finalize and complete mainnet deployment guide for Micro Tools Hub",
+  "title": "Add “Number & Conversion Tools” hub card and a dedicated tools page with calculators and converters",
   "priority": "normal",
   "requirements": [
     {
-      "id": "REQ-12",
-      "text": "Complete the existing deployment guide at frontend/DEPLOYMENT.md so it contains a full, runnable set of steps to deploy the app to the Internet Computer mainnet (live), including build/deploy commands, environment/network selection, and a short post-deploy verification checklist.",
+      "id": "REQ-21",
+      "text": "Add a new Hub card titled “Number & Conversion Tools” on the main hub page (frontend/src/pages/HubPage.tsx) that navigates to a dedicated Number & Conversion Tools page when selected.",
       "target": "frontend",
       "source": {
         "messageIds": [
-          "msg-4"
+          "msg-1"
         ],
         "quotes": [
-          "Yes"
+          "Please add a card called Number & Conversion Tools"
         ]
       },
       "acceptanceCriteria": [
-        "frontend/DEPLOYMENT.md is no longer truncated and renders as valid Markdown (no dangling/open code fences).",
-        "The guide includes explicit commands/steps for: installing prerequisites, building the frontend, deploying canisters with dfx to mainnet, and how to select the mainnet network.",
-        "The guide includes a post-deploy verification checklist covering at least: app loads in browser, each tool page is accessible from the hub, QR/password/name/unit/image tools function in the deployed build, and AdSense script is present in the delivered HTML."
+        "The Hub page shows a new card labeled “Number & Conversion Tools”.",
+        "Clicking the card (or its “Open Tool” button) navigates to the dedicated Number & Conversion Tools page.",
+        "All user-facing text for this new card is in English."
+      ]
+    },
+    {
+      "id": "REQ-22",
+      "text": "Wire the new “Number & Conversion Tools” page into application navigation by extending the Page union and route switch in frontend/src/App.tsx, and ensure AppLayout back navigation returns to the hub as it does for other pages.",
+      "target": "frontend",
+      "source": {
+        "messageIds": [
+          "msg-1"
+        ],
+        "quotes": [
+          "Please add a card called Number & Conversion Tools"
+        ]
+      },
+      "acceptanceCriteria": [
+        "The application has a new page route/state (e.g., Page value) for “Number & Conversion Tools”.",
+        "Navigating to the new page renders it inside the existing AppLayout.",
+        "The header back button appears on the new page and returns to the hub."
+      ]
+    },
+    {
+      "id": "REQ-23",
+      "text": "Create a new dedicated page component for “Number & Conversion Tools” that presents all requested tools on a single page using a responsive tabbed interface (similar to frontend/src/pages/TextWritingToolsPage.tsx) with clear input/output sections, and consistent Clear/Copy interactions where applicable using the existing copy helper (frontend/src/lib/clipboard.ts).",
+      "target": "frontend",
+      "source": {
+        "messageIds": [
+          "msg-1"
+        ],
+        "quotes": [
+          "Please add a card called Number & Conversion Tools that has the following -\n\nPercentage calculator\nTip / gratuity calculator\nSplit bill calculator\nAge calculator\nDate difference calculator\nTime duration calculator\nUnit converters\nBinary / decimal / hex converter\nCurrency converter\nRandom number picker"
+        ]
+      },
+      "acceptanceCriteria": [
+        "A new “Number & Conversion Tools” page exists and is reachable from the Hub.",
+        "All 10 tools are available on this single page (not separate routes) and are selectable via tabs/sections.",
+        "The tool navigation UI is responsive and does not hide any tool tabs on small screens (wraps and/or allows horizontal scroll) while keeping labels in English.",
+        "Each tool that produces a result offers: (1) a Clear action, and (2) a Copy action where copying makes sense; Copy uses the shared toast-based clipboard feedback."
+      ]
+    },
+    {
+      "id": "REQ-24",
+      "text": "Implement a “Percentage calculator” tool with inputs that cover common percentage operations and show results immediately: (a) “X% of Y”, (b) “What percent is X of Y”, and (c) “Percentage change from A to B”.",
+      "target": "frontend",
+      "source": {
+        "messageIds": [
+          "msg-1"
+        ],
+        "quotes": [
+          "Percentage calculator"
+        ]
+      },
+      "acceptanceCriteria": [
+        "The Percentage tool supports computing X% of Y, computing X as a percent of Y, and percent change from A to B.",
+        "Invalid or empty inputs do not crash the UI; results are cleared or show a simple English validation message.",
+        "Results can be copied to clipboard via a Copy action."
+      ]
+    },
+    {
+      "id": "REQ-25",
+      "text": "Implement a “Tip / gratuity calculator” tool that computes tip amount and total based on bill amount and tip percentage, with an optional split count to show per-person amounts.",
+      "target": "frontend",
+      "source": {
+        "messageIds": [
+          "msg-1"
+        ],
+        "quotes": [
+          "Tip / gratuity calculator"
+        ]
+      },
+      "acceptanceCriteria": [
+        "User can enter bill amount and tip percentage to see tip and total.",
+        "If a split count is provided (>1), the UI also shows per-person tip and per-person total.",
+        "Results are displayed in a clear, English-labeled summary and can be copied (summary string)."
+      ]
+    },
+    {
+      "id": "REQ-26",
+      "text": "Implement a “Split bill calculator” tool that splits a total amount among N people, optionally allowing an additional fee or tax percentage and showing per-person amounts.",
+      "target": "frontend",
+      "source": {
+        "messageIds": [
+          "msg-1"
+        ],
+        "quotes": [
+          "Split bill calculator"
+        ]
+      },
+      "acceptanceCriteria": [
+        "User can input total amount and number of people and see per-person share.",
+        "If an optional tax/fee percentage is provided, the calculator includes it in the final total before splitting.",
+        "The tool provides Clear and Copy actions (copy a human-readable summary in English)."
+      ]
+    },
+    {
+      "id": "REQ-27",
+      "text": "Implement an “Age calculator” tool that accepts a date of birth and an optional “as of” date (defaulting to today) and outputs age in years (and additionally months/days breakdown if feasible within the UI).",
+      "target": "frontend",
+      "source": {
+        "messageIds": [
+          "msg-1"
+        ],
+        "quotes": [
+          "Age calculator"
+        ]
+      },
+      "acceptanceCriteria": [
+        "User can pick/enter a date of birth and optionally an “as of” date; default is the current local date.",
+        "The tool outputs an age result in English (at minimum years; optionally also months and days).",
+        "Invalid date input shows an English validation message and no incorrect calculations are shown."
+      ]
+    },
+    {
+      "id": "REQ-28",
+      "text": "Implement a “Date difference calculator” tool that accepts two calendar dates and outputs the difference in days (and additionally weeks/months/years breakdown if feasible), with clear handling for which date is earlier.",
+      "target": "frontend",
+      "source": {
+        "messageIds": [
+          "msg-1"
+        ],
+        "quotes": [
+          "Date difference calculator"
+        ]
+      },
+      "acceptanceCriteria": [
+        "User can provide a start date and end date and see a computed difference in days.",
+        "The result is correct regardless of which date is earlier (the UI may also show direction, e.g., “Start is before end”, but must be in English).",
+        "The result can be copied to clipboard."
+      ]
+    },
+    {
+      "id": "REQ-29",
+      "text": "Implement a “Time duration calculator” tool that can compute duration between two times (with optional dates) and/or sum multiple durations, and outputs a normalized duration (e.g., hours/minutes/seconds).",
+      "target": "frontend",
+      "source": {
+        "messageIds": [
+          "msg-1"
+        ],
+        "quotes": [
+          "Time duration calculator"
+        ]
+      },
+      "acceptanceCriteria": [
+        "The tool provides a straightforward flow to compute a duration and shows a normalized result (e.g., total seconds and HH:MM:SS).",
+        "If inputs are invalid, the UI shows an English validation message and does not crash.",
+        "The duration result can be copied to clipboard."
+      ]
+    },
+    {
+      "id": "REQ-30",
+      "text": "Include “Unit converters” in the Number & Conversion Tools page by reusing the existing unit conversion logic (frontend/src/lib/units.ts) and providing an embedded unit converter UI similar in capability to the existing Unit Converter page.",
+      "target": "frontend",
+      "source": {
+        "messageIds": [
+          "msg-1"
+        ],
+        "quotes": [
+          "Unit converters"
+        ]
+      },
+      "acceptanceCriteria": [
+        "The Number & Conversion Tools page contains a Unit Converter section/tool that uses the existing conversion categories and functions.",
+        "The embedded converter supports selecting category, from/to units, entering a value, and viewing the computed result.",
+        "The embedded converter is usable on mobile and desktop and uses English labels."
+      ]
+    },
+    {
+      "id": "REQ-31",
+      "text": "Implement a “Binary / decimal / hex converter” tool that converts numbers between bases 2, 10, and 16, validates input based on selected base, and outputs the other representations.",
+      "target": "frontend",
+      "source": {
+        "messageIds": [
+          "msg-1"
+        ],
+        "quotes": [
+          "Binary / decimal / hex converter"
+        ]
+      },
+      "acceptanceCriteria": [
+        "User can enter a number and select/indicate its base (binary, decimal, hex).",
+        "The tool outputs the equivalent values in the other bases.",
+        "Invalid characters for the selected base show an English validation message; output is cleared rather than showing incorrect results.",
+        "Each output representation can be copied to clipboard (or a single Copy action copies all in a readable format)."
+      ]
+    },
+    {
+      "id": "REQ-32",
+      "text": "Implement a “Currency converter” tool that converts between currencies without relying on external APIs by allowing the user to either (a) enter a custom exchange rate, or (b) maintain a small editable table of rates relative to a chosen base currency, then compute conversions based on those inputs.",
+      "target": "frontend",
+      "source": {
+        "messageIds": [
+          "msg-1"
+        ],
+        "quotes": [
+          "Currency converter"
+        ]
+      },
+      "acceptanceCriteria": [
+        "The Currency Converter does not call any external exchange-rate API.",
+        "User can convert an amount between two selected currencies using user-provided rate(s).",
+        "The tool clearly labels how rates are interpreted (in English) and provides input validation for non-numeric values.",
+        "The conversion result can be copied to clipboard."
+      ]
+    },
+    {
+      "id": "REQ-33",
+      "text": "Implement a “Random number picker” tool that generates one or more random integers within a user-defined inclusive range, with options for quantity and (optionally) uniqueness when the range allows it.",
+      "target": "frontend",
+      "source": {
+        "messageIds": [
+          "msg-1"
+        ],
+        "quotes": [
+          "Random number picker"
+        ]
+      },
+      "acceptanceCriteria": [
+        "User can set min and max values and generate random integer(s) within the inclusive range.",
+        "User can set a quantity to generate multiple numbers; if “unique” is enabled, the tool prevents impossible requests (e.g., more unique numbers than range size) with an English error message.",
+        "Generated numbers are displayed clearly and can be copied to clipboard (either individually or as a combined list)."
+      ]
+    },
+    {
+      "id": "REQ-34",
+      "text": "Add shared, reusable frontend utility functions to support the Number & Conversion Tools calculations (percent math, date/time differences, base conversion, random number generation) in a new or existing lib module, and ensure consistent formatting and validation across tools.",
+      "target": "frontend",
+      "source": {
+        "messageIds": [
+          "msg-1"
+        ],
+        "quotes": [
+          "Percentage calculator\nTip / gratuity calculator\nSplit bill calculator\nAge calculator\nDate difference calculator\nTime duration calculator\nBinary / decimal / hex converter\nCurrency converter\nRandom number picker"
+        ]
+      },
+      "acceptanceCriteria": [
+        "Core calculator/conversion logic is encapsulated in reusable functions under frontend/src/lib (new file(s) are acceptable).",
+        "UI components call the shared functions rather than duplicating complex logic inline.",
+        "Utilities include basic input validation helpers so tools behave consistently (English error messages handled at the UI layer)."
       ]
     }
   ],
   "constraints": [
-    "Backend must remain a single Motoko actor (all backend logic in backend/main.mo).",
-    "Do not edit files under frontend/src/components/ui or other frontend immutablePaths; compose those components instead.",
-    "Use English for any user-facing text."
+    "Frontend must remain within the existing React + TypeScript + Tailwind + shadcn/ui stack.",
+    "Do not modify files under frontend/src/components/ui (read-only components must be composed, not edited).",
+    "Do not modify files listed as immutable paths in SYSTEM_CONTEXT (e.g., frontend/src/hooks/useInternetIdentity.ts(x), frontend/src/hooks/useActor.ts, frontend/src/main.tsx).",
+    "Backend is single-actor Motoko; however, these tools should be frontend-only unless a concrete backend need is identified.",
+    "Use English for all user-facing text.",
+    "Currency conversion must not depend on third-party APIs/services."
   ],
   "nonGoals": [
-    "Adding new tools or expanding existing tools’ functionality.",
-    "Changing the Google AdSense loader snippet in frontend/index.html.",
-    "Implementing third-party authentication beyond Internet Identity."
+    "Implementing real-time or automatically-updating currency exchange rates from external providers.",
+    "Adding third-party authentication providers (only Internet Identity is supported).",
+    "Persisting user calculator configurations to a database or external storage.",
+    "Creating separate routes/pages for each individual number/conversion tool (all requested tools should live on the single dedicated page)."
   ],
   "imageRequirements": {
     "required": [],

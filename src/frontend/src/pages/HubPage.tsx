@@ -1,6 +1,6 @@
 import { Card, CardHeader, CardTitle, CardDescription, CardContent } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
-import { QrCode, Key, ImageIcon, ArrowLeftRight, User } from 'lucide-react';
+import { Sparkles, Type, Calculator } from 'lucide-react';
 import { type Page } from '../App';
 
 interface HubPageProps {
@@ -9,44 +9,28 @@ interface HubPageProps {
 
 const tools = [
   {
-    id: 'qr' as Page,
-    title: 'QR Code Generator',
-    description: 'Create QR codes from text or URLs and download them as images',
-    icon: QrCode,
+    id: 'popular' as Page,
+    title: 'Popular Tools',
+    description: 'Access five essential utilities in one place: QR codes, passwords, image resizing, unit conversion, and random names',
+    icon: Sparkles,
     color: 'text-amber-600 dark:text-amber-400',
     bgColor: 'bg-amber-50 dark:bg-amber-950/30',
   },
   {
-    id: 'password' as Page,
-    title: 'Password Generator',
-    description: 'Generate secure passwords with customizable options',
-    icon: Key,
-    color: 'text-emerald-600 dark:text-emerald-400',
-    bgColor: 'bg-emerald-50 dark:bg-emerald-950/30',
+    id: 'text' as Page,
+    title: 'Text & Writing Tools',
+    description: 'Transform, format, and generate text with powerful utilities',
+    icon: Type,
+    color: 'text-purple-600 dark:text-purple-400',
+    bgColor: 'bg-purple-50 dark:bg-purple-950/30',
   },
   {
-    id: 'image' as Page,
-    title: 'Image Resizer',
-    description: 'Resize images with aspect ratio control and instant preview',
-    icon: ImageIcon,
-    color: 'text-orange-600 dark:text-orange-400',
-    bgColor: 'bg-orange-50 dark:bg-orange-950/30',
-  },
-  {
-    id: 'unit' as Page,
-    title: 'Unit Converter',
-    description: 'Convert between units of length, weight, temperature, and volume',
-    icon: ArrowLeftRight,
-    color: 'text-teal-600 dark:text-teal-400',
-    bgColor: 'bg-teal-50 dark:bg-teal-950/30',
-  },
-  {
-    id: 'name' as Page,
-    title: 'Random Name Generator',
-    description: 'Generate random names for projects, characters, or testing',
-    icon: User,
-    color: 'text-rose-600 dark:text-rose-400',
-    bgColor: 'bg-rose-50 dark:bg-rose-950/30',
+    id: 'number' as Page,
+    title: 'Number & Conversion Tools',
+    description: 'Calculate percentages, tips, dates, time, convert units, currencies, and more',
+    icon: Calculator,
+    color: 'text-blue-600 dark:text-blue-400',
+    bgColor: 'bg-blue-50 dark:bg-blue-950/30',
   },
 ];
 
@@ -58,7 +42,7 @@ export default function HubPage({ onNavigate }: HubPageProps) {
           Your Essential Toolkit
         </h2>
         <p className="text-lg text-muted-foreground max-w-2xl mx-auto">
-          Five powerful utilities to streamline your workflow. Choose a tool to get started.
+          Powerful utilities to streamline your workflow. Choose a tool to get started.
         </p>
       </div>
 

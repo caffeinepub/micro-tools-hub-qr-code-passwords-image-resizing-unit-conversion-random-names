@@ -1,24 +1,187 @@
 {
   "kind": "coverage_report",
   "version": "1.0",
-  "generatedAt": "2026-02-08T10:09:35.237Z",
+  "generatedAt": "2026-02-13T22:35:51.943Z",
   "sources": {
     "buildRequest": true,
     "implementationPlan": true
   },
   "requirements": {
-    "total": 1,
-    "implemented": 1,
+    "total": 14,
+    "implemented": 14,
     "items": [
       {
-        "id": "REQ-12",
-        "summary": "Complete the existing deployment guide at frontend/DEPLOYMENT.md so it contains a full, runnable set of steps to deploy the app to the Internet Computer mainnet (live), including build/deploy commands, environment/network selection, and a short post-deploy verification checklist.",
+        "id": "REQ-21",
+        "summary": "Add a new Hub card titled “Number & Conversion Tools” on the main hub page (frontend/src/pages/HubPage.tsx) that navigates to a dedicated Number & Conversion Tools page when selected.",
         "status": "implemented",
         "plannedFiles": [
-          "frontend/DEPLOYMENT.md"
+          "frontend/src/pages/HubPage.tsx"
         ],
         "matchedFiles": [
-          "frontend/DEPLOYMENT.md"
+          "frontend/src/pages/HubPage.tsx"
+        ]
+      },
+      {
+        "id": "REQ-22",
+        "summary": "Wire the new “Number & Conversion Tools” page into application navigation by extending the Page union and route switch in frontend/src/App.tsx, and ensure AppLayout back navigation returns to the hub as it does for other pages.",
+        "status": "implemented",
+        "plannedFiles": [
+          "frontend/src/App.tsx"
+        ],
+        "matchedFiles": [
+          "frontend/src/App.tsx"
+        ]
+      },
+      {
+        "id": "REQ-23",
+        "summary": "Create a new dedicated page component for “Number & Conversion Tools” that presents all requested tools on a single page using a responsive tabbed interface (similar to frontend/src/pages/TextWritingToolsPage.tsx) with clear input/output sections, and consistent Clear/Copy interactions where applicable using the existing copy helper (frontend/src/lib/clipboard.ts).",
+        "status": "implemented",
+        "plannedFiles": [
+          "frontend/src/pages/NumberConversionToolsPage.tsx"
+        ],
+        "matchedFiles": [
+          "frontend/src/pages/NumberConversionToolsPage.tsx"
+        ]
+      },
+      {
+        "id": "REQ-24",
+        "summary": "Implement a “Percentage calculator” tool with inputs that cover common percentage operations and show results immediately: (a) “X% of Y”, (b) “What percent is X of Y”, and (c) “Percentage change from A to B”.",
+        "status": "implemented",
+        "plannedFiles": [
+          "frontend/src/pages/NumberConversionToolsPage.tsx",
+          "frontend/src/lib/numberTools.ts"
+        ],
+        "matchedFiles": [
+          "frontend/src/pages/NumberConversionToolsPage.tsx",
+          "frontend/src/lib/numberTools.ts"
+        ]
+      },
+      {
+        "id": "REQ-25",
+        "summary": "Implement a “Tip / gratuity calculator” tool that computes tip amount and total based on bill amount and tip percentage, with an optional split count to show per-person amounts.",
+        "status": "implemented",
+        "plannedFiles": [
+          "frontend/src/pages/NumberConversionToolsPage.tsx",
+          "frontend/src/lib/numberTools.ts"
+        ],
+        "matchedFiles": [
+          "frontend/src/pages/NumberConversionToolsPage.tsx",
+          "frontend/src/lib/numberTools.ts"
+        ]
+      },
+      {
+        "id": "REQ-26",
+        "summary": "Implement a “Split bill calculator” tool that splits a total amount among N people, optionally allowing an additional fee or tax percentage and showing per-person amounts.",
+        "status": "implemented",
+        "plannedFiles": [
+          "frontend/src/pages/NumberConversionToolsPage.tsx",
+          "frontend/src/lib/numberTools.ts"
+        ],
+        "matchedFiles": [
+          "frontend/src/pages/NumberConversionToolsPage.tsx",
+          "frontend/src/lib/numberTools.ts"
+        ]
+      },
+      {
+        "id": "REQ-27",
+        "summary": "Implement an “Age calculator” tool that accepts a date of birth and an optional “as of” date (defaulting to today) and outputs age in years (and additionally months/days breakdown if feasible within the UI).",
+        "status": "implemented",
+        "plannedFiles": [
+          "frontend/src/pages/NumberConversionToolsPage.tsx",
+          "frontend/src/lib/numberTools.ts"
+        ],
+        "matchedFiles": [
+          "frontend/src/pages/NumberConversionToolsPage.tsx",
+          "frontend/src/lib/numberTools.ts"
+        ]
+      },
+      {
+        "id": "REQ-28",
+        "summary": "Implement a “Date difference calculator” tool that accepts two calendar dates and outputs the difference in days (and additionally weeks/months/years breakdown if feasible), with clear handling for which date is earlier.",
+        "status": "implemented",
+        "plannedFiles": [
+          "frontend/src/pages/NumberConversionToolsPage.tsx",
+          "frontend/src/lib/numberTools.ts"
+        ],
+        "matchedFiles": [
+          "frontend/src/pages/NumberConversionToolsPage.tsx",
+          "frontend/src/lib/numberTools.ts"
+        ]
+      },
+      {
+        "id": "REQ-29",
+        "summary": "Implement a “Time duration calculator” tool that can compute duration between two times (with optional dates) and/or sum multiple durations, and outputs a normalized duration (e.g., hours/minutes/seconds).",
+        "status": "implemented",
+        "plannedFiles": [
+          "frontend/src/pages/NumberConversionToolsPage.tsx",
+          "frontend/src/lib/numberTools.ts"
+        ],
+        "matchedFiles": [
+          "frontend/src/pages/NumberConversionToolsPage.tsx",
+          "frontend/src/lib/numberTools.ts"
+        ]
+      },
+      {
+        "id": "REQ-30",
+        "summary": "Include “Unit converters” in the Number & Conversion Tools page by reusing the existing unit conversion logic (frontend/src/lib/units.ts) and providing an embedded unit converter UI similar in capability to the existing Unit Converter page.",
+        "status": "implemented",
+        "plannedFiles": [
+          "frontend/src/pages/NumberConversionToolsPage.tsx"
+        ],
+        "matchedFiles": [
+          "frontend/src/pages/NumberConversionToolsPage.tsx"
+        ]
+      },
+      {
+        "id": "REQ-31",
+        "summary": "Implement a “Binary / decimal / hex converter” tool that converts numbers between bases 2, 10, and 16, validates input based on selected base, and outputs the other representations.",
+        "status": "implemented",
+        "plannedFiles": [
+          "frontend/src/pages/NumberConversionToolsPage.tsx",
+          "frontend/src/lib/numberTools.ts"
+        ],
+        "matchedFiles": [
+          "frontend/src/pages/NumberConversionToolsPage.tsx",
+          "frontend/src/lib/numberTools.ts"
+        ]
+      },
+      {
+        "id": "REQ-32",
+        "summary": "Implement a “Currency converter” tool that converts between currencies without relying on external APIs by allowing the user to either (a) enter a custom exchange rate, or (b) maintain a small editable table of rates relative to a chosen base currency, then compute conversions based on those inputs.",
+        "status": "implemented",
+        "plannedFiles": [
+          "frontend/src/pages/NumberConversionToolsPage.tsx",
+          "frontend/src/lib/numberTools.ts"
+        ],
+        "matchedFiles": [
+          "frontend/src/pages/NumberConversionToolsPage.tsx",
+          "frontend/src/lib/numberTools.ts"
+        ]
+      },
+      {
+        "id": "REQ-33",
+        "summary": "Implement a “Random number picker” tool that generates one or more random integers within a user-defined inclusive range, with options for quantity and (optionally) uniqueness when the range allows it.",
+        "status": "implemented",
+        "plannedFiles": [
+          "frontend/src/pages/NumberConversionToolsPage.tsx",
+          "frontend/src/lib/numberTools.ts"
+        ],
+        "matchedFiles": [
+          "frontend/src/pages/NumberConversionToolsPage.tsx",
+          "frontend/src/lib/numberTools.ts"
+        ]
+      },
+      {
+        "id": "REQ-34",
+        "summary": "Add shared, reusable frontend utility functions to support the Number & Conversion Tools calculations (percent math, date/time differences, base conversion, random number generation) in a new or existing lib module, and ensure consistent formatting and validation across tools.",
+        "status": "implemented",
+        "plannedFiles": [
+          "frontend/src/lib/numberTools.ts",
+          "frontend/src/pages/NumberConversionToolsPage.tsx"
+        ],
+        "matchedFiles": [
+          "frontend/src/lib/numberTools.ts",
+          "frontend/src/pages/NumberConversionToolsPage.tsx"
         ]
       }
     ]
@@ -28,7 +191,10 @@
     "feature_evidence.json",
     "frontend-file-summaries.txt",
     "frontend-implementation-plan.json",
-    "frontend/DEPLOYMENT.md",
+    "frontend/src/App.tsx",
+    "frontend/src/lib/numberTools.ts",
+    "frontend/src/pages/HubPage.tsx",
+    "frontend/src/pages/NumberConversionToolsPage.tsx",
     "project_state.json",
     "scratch/component-selection.json",
     "spec.md",

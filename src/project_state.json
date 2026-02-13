@@ -1,11 +1,14 @@
 {
   "schemaVersion": "1.0.0",
-  "projectStateVersion": 9,
-  "summary": "Micro tools hub app featuring: QR Code Generator, Password Generator, Image Resizer, Unit Converter, Random Name Generator, plus AdSense ad placements (top and bottom banners) for monetization.",
+  "projectStateVersion": 19,
+  "summary": "Micro tools hub app featuring existing tools plus a \"Text & Writing Tools\" section, AdSense placements, a \"Popular Tools\" entry on the home page linking to a combined page, and a new \"Number & Conversion Tools\" card/section that opens a page containing calculators and conversion utilities (percentage, tip, split bill, age/date/time calculations, unit/currency/base conversion, random number picker).",
   "architectural_notes": [
-    "Monetization via ads: integrate Google AdSense (browser-side script) and render two ad slots (top and bottom banners) across the app or key pages."
+    "Monetization via ads: integrate Google AdSense (browser-side script) and render two ad slots (top and bottom banners) across the app or key pages.",
+    "Publish an ads.txt file at the site root for AdSense authorization; include: google.com, pub-9284074903614668, DIRECT, f08c47fec0942fa0"
   ],
-  "known_issues": [],
+  "known_issues": [
+    "Text & Writing Tools page shows only 6 tabs; missing: Lorem Ipsum Generator, Hashtag Generator, Emoji Picker/Copier."
+  ],
   "isFixRequest": false,
   "existing_features": [
     {
@@ -103,6 +106,182 @@
         "REQ-12"
       ],
       "version": 1
+    },
+    {
+      "id": "feature-add-an-ads-txt-file-for-the-deployed-site-and-ensure-it-is-served-at-the-root-path-ads-txt-if-no-ads-txt-currently-exists-create-it-and-include-the-following-line-exactly-as-provided-google-com-pub-9284074903614668-direct-f08c47fec0942fa0",
+      "title": "Add an ads.txt file for the deployed site, and ensure it is served at the root path `/ads.txt`. If no ads.txt currently exists, create it and include the following line exactly as provided:\n\ngoogle.com, pub-9284074903614668, DIRECT, f08c47fec0942fa0",
+      "reqIds": [
+        "REQ-13"
+      ],
+      "version": 1
+    },
+    {
+      "id": "feature-add-a-new-hub-section-card-titled-text-writing-tools-on-the-main-hub-page-that-navigates-to-a-dedicated-text-writing-tools-page-when-selected",
+      "title": "Add a new hub section/card titled “Text & Writing Tools” on the main Hub page that navigates to a dedicated “Text & Writing Tools” page when selected.",
+      "reqIds": [
+        "REQ-14"
+      ],
+      "version": 1
+    },
+    {
+      "id": "feature-implement-a-new-text-writing-tools-page-that-contains-the-following-tools-all-on-this-page-each-with-an-input-area-an-output-result-area-where-applicable-and-a-clear-action-copy-flow-case-converter-upper-lower-title-case-word-character-counter-remove-duplicate-lines-text-sorter-a-z-z-a-line-breaker-paragraph-formatter-slug-url-generator-lorem-ipsum-generator-hashtag-generator-emoji-picker-copier",
+      "title": "Implement a new “Text & Writing Tools” page that contains the following tools (all on this page), each with an input area, an output/result area (where applicable), and a clear action/copy flow:\n- Case converter (UPPER / lower / Title Case)\n- Word & character counter\n- Remove duplicate lines\n- Text sorter (A–Z / Z–A)\n- Line breaker / paragraph formatter\n- Slug / URL generator\n- Lorem ipsum generator\n- Hashtag generator\n- Emoji picker / copier",
+      "reqIds": [
+        "REQ-15"
+      ],
+      "version": 1
+    },
+    {
+      "id": "feature-add-shared-reusable-frontend-utility-functions-to-support-the-text-writing-tools-transformations-and-ensure-each-tool-offers-a-consistent-copy-to-clipboard-interaction-with-clear-success-failure-feedback",
+      "title": "Add shared, reusable frontend utility functions to support the Text & Writing Tools transformations and ensure each tool offers a consistent “Copy to clipboard” interaction with clear success/failure feedback.",
+      "reqIds": [
+        "REQ-16"
+      ],
+      "version": 1
+    },
+    {
+      "id": "feature-fix-the-text-writing-tools-page-so-all-9-tool-tabs-are-visible-and-usable-specifically-ensuring-the-tabs-for-lorem-hashtag-and-emoji-appear-and-can-be-selected-on-all-screen-sizes",
+      "title": "Fix the “Text & Writing Tools” page so all 9 tool tabs are visible and usable, specifically ensuring the tabs for “Lorem”, “Hashtag”, and “Emoji” appear and can be selected on all screen sizes.",
+      "reqIds": [
+        "REQ-17"
+      ],
+      "version": 1
+    },
+    {
+      "id": "feature-ensure-the-text-writing-tools-tab-list-layout-is-responsive-in-a-way-that-does-not-hide-any-tabs-e-g-wraps-into-multiple-rows-or-becomes-horizontally-scrollable-while-keeping-all-user-facing-labels-in-english",
+      "title": "Ensure the “Text & Writing Tools” tab list layout is responsive in a way that does not hide any tabs (e.g., wraps into multiple rows or becomes horizontally scrollable), while keeping all user-facing labels in English.",
+      "reqIds": [
+        "REQ-18"
+      ],
+      "version": 1
+    },
+    {
+      "id": "feature-update-the-main-hub-page-ui-frontend-src-pages-hubpage-tsx-so-the-first-five-individual-tool-cards-qr-code-generator-password-generator-image-resizer-unit-converter-random-name-generator-are-no-longer-shown-on-the-hub-and-are-replaced-by-one-single-card-titled-popular-tools-that-navigates-to-a-new-combined-page-when-selected",
+      "title": "Update the main Hub page UI (frontend/src/pages/HubPage.tsx) so the first five individual tool cards (QR Code Generator, Password Generator, Image Resizer, Unit Converter, Random Name Generator) are no longer shown on the Hub, and are replaced by one single card titled “Popular Tools” that navigates to a new combined page when selected.",
+      "reqIds": [
+        "REQ-19"
+      ],
+      "version": 1
+    },
+    {
+      "id": "feature-add-a-new-popular-tools-page-and-wire-it-into-app-navigation-frontend-src-app-tsx-so-that-selecting-the-popular-tools-card-opens-a-page-that-contains-the-five-tools-together-on-a-single-page-qr-code-generator-password-generator-image-resizer-unit-converter-and-random-name-generator",
+      "title": "Add a new “Popular Tools” page and wire it into app navigation (frontend/src/App.tsx) so that selecting the “Popular Tools” card opens a page that contains the five tools together on a single page: QR Code Generator, Password Generator, Image Resizer, Unit Converter, and Random Name Generator.",
+      "reqIds": [
+        "REQ-20"
+      ],
+      "version": 1
+    },
+    {
+      "id": "feature-add-a-new-hub-card-titled-number-conversion-tools-on-the-main-hub-page-frontend-src-pages-hubpage-tsx-that-navigates-to-a-dedicated-number-conversion-tools-page-when-selected",
+      "title": "Add a new Hub card titled “Number & Conversion Tools” on the main hub page (frontend/src/pages/HubPage.tsx) that navigates to a dedicated Number & Conversion Tools page when selected.",
+      "reqIds": [
+        "REQ-21"
+      ],
+      "version": 1
+    },
+    {
+      "id": "feature-wire-the-new-number-conversion-tools-page-into-application-navigation-by-extending-the-page-union-and-route-switch-in-frontend-src-app-tsx-and-ensure-applayout-back-navigation-returns-to-the-hub-as-it-does-for-other-pages",
+      "title": "Wire the new “Number & Conversion Tools” page into application navigation by extending the Page union and route switch in frontend/src/App.tsx, and ensure AppLayout back navigation returns to the hub as it does for other pages.",
+      "reqIds": [
+        "REQ-22"
+      ],
+      "version": 1
+    },
+    {
+      "id": "feature-create-a-new-dedicated-page-component-for-number-conversion-tools-that-presents-all-requested-tools-on-a-single-page-using-a-responsive-tabbed-interface-similar-to-frontend-src-pages-textwritingtoolspage-tsx-with-clear-input-output-sections-and-consistent-clear-copy-interactions-where-applicable-using-the-existing-copy-helper-frontend-src-lib-clipboard-ts",
+      "title": "Create a new dedicated page component for “Number & Conversion Tools” that presents all requested tools on a single page using a responsive tabbed interface (similar to frontend/src/pages/TextWritingToolsPage.tsx) with clear input/output sections, and consistent Clear/Copy interactions where applicable using the existing copy helper (frontend/src/lib/clipboard.ts).",
+      "reqIds": [
+        "REQ-23"
+      ],
+      "version": 1
+    },
+    {
+      "id": "feature-implement-a-percentage-calculator-tool-with-inputs-that-cover-common-percentage-operations-and-show-results-immediately-a-x-of-y-b-what-percent-is-x-of-y-and-c-percentage-change-from-a-to-b",
+      "title": "Implement a “Percentage calculator” tool with inputs that cover common percentage operations and show results immediately: (a) “X% of Y”, (b) “What percent is X of Y”, and (c) “Percentage change from A to B”.",
+      "reqIds": [
+        "REQ-24"
+      ],
+      "version": 1
+    },
+    {
+      "id": "feature-implement-a-tip-gratuity-calculator-tool-that-computes-tip-amount-and-total-based-on-bill-amount-and-tip-percentage-with-an-optional-split-count-to-show-per-person-amounts",
+      "title": "Implement a “Tip / gratuity calculator” tool that computes tip amount and total based on bill amount and tip percentage, with an optional split count to show per-person amounts.",
+      "reqIds": [
+        "REQ-25"
+      ],
+      "version": 1
+    },
+    {
+      "id": "feature-implement-a-split-bill-calculator-tool-that-splits-a-total-amount-among-n-people-optionally-allowing-an-additional-fee-or-tax-percentage-and-showing-per-person-amounts",
+      "title": "Implement a “Split bill calculator” tool that splits a total amount among N people, optionally allowing an additional fee or tax percentage and showing per-person amounts.",
+      "reqIds": [
+        "REQ-26"
+      ],
+      "version": 1
+    },
+    {
+      "id": "feature-implement-an-age-calculator-tool-that-accepts-a-date-of-birth-and-an-optional-as-of-date-defaulting-to-today-and-outputs-age-in-years-and-additionally-months-days-breakdown-if-feasible-within-the-ui",
+      "title": "Implement an “Age calculator” tool that accepts a date of birth and an optional “as of” date (defaulting to today) and outputs age in years (and additionally months/days breakdown if feasible within the UI).",
+      "reqIds": [
+        "REQ-27"
+      ],
+      "version": 1
+    },
+    {
+      "id": "feature-implement-a-date-difference-calculator-tool-that-accepts-two-calendar-dates-and-outputs-the-difference-in-days-and-additionally-weeks-months-years-breakdown-if-feasible-with-clear-handling-for-which-date-is-earlier",
+      "title": "Implement a “Date difference calculator” tool that accepts two calendar dates and outputs the difference in days (and additionally weeks/months/years breakdown if feasible), with clear handling for which date is earlier.",
+      "reqIds": [
+        "REQ-28"
+      ],
+      "version": 1
+    },
+    {
+      "id": "feature-implement-a-time-duration-calculator-tool-that-can-compute-duration-between-two-times-with-optional-dates-and-or-sum-multiple-durations-and-outputs-a-normalized-duration-e-g-hours-minutes-seconds",
+      "title": "Implement a “Time duration calculator” tool that can compute duration between two times (with optional dates) and/or sum multiple durations, and outputs a normalized duration (e.g., hours/minutes/seconds).",
+      "reqIds": [
+        "REQ-29"
+      ],
+      "version": 1
+    },
+    {
+      "id": "feature-include-unit-converters-in-the-number-conversion-tools-page-by-reusing-the-existing-unit-conversion-logic-frontend-src-lib-units-ts-and-providing-an-embedded-unit-converter-ui-similar-in-capability-to-the-existing-unit-converter-page",
+      "title": "Include “Unit converters” in the Number & Conversion Tools page by reusing the existing unit conversion logic (frontend/src/lib/units.ts) and providing an embedded unit converter UI similar in capability to the existing Unit Converter page.",
+      "reqIds": [
+        "REQ-30"
+      ],
+      "version": 1
+    },
+    {
+      "id": "feature-implement-a-binary-decimal-hex-converter-tool-that-converts-numbers-between-bases-2-10-and-16-validates-input-based-on-selected-base-and-outputs-the-other-representations",
+      "title": "Implement a “Binary / decimal / hex converter” tool that converts numbers between bases 2, 10, and 16, validates input based on selected base, and outputs the other representations.",
+      "reqIds": [
+        "REQ-31"
+      ],
+      "version": 1
+    },
+    {
+      "id": "feature-implement-a-currency-converter-tool-that-converts-between-currencies-without-relying-on-external-apis-by-allowing-the-user-to-either-a-enter-a-custom-exchange-rate-or-b-maintain-a-small-editable-table-of-rates-relative-to-a-chosen-base-currency-then-compute-conversions-based-on-those-inputs",
+      "title": "Implement a “Currency converter” tool that converts between currencies without relying on external APIs by allowing the user to either (a) enter a custom exchange rate, or (b) maintain a small editable table of rates relative to a chosen base currency, then compute conversions based on those inputs.",
+      "reqIds": [
+        "REQ-32"
+      ],
+      "version": 1
+    },
+    {
+      "id": "feature-implement-a-random-number-picker-tool-that-generates-one-or-more-random-integers-within-a-user-defined-inclusive-range-with-options-for-quantity-and-optionally-uniqueness-when-the-range-allows-it",
+      "title": "Implement a “Random number picker” tool that generates one or more random integers within a user-defined inclusive range, with options for quantity and (optionally) uniqueness when the range allows it.",
+      "reqIds": [
+        "REQ-33"
+      ],
+      "version": 1
+    },
+    {
+      "id": "feature-add-shared-reusable-frontend-utility-functions-to-support-the-number-conversion-tools-calculations-percent-math-date-time-differences-base-conversion-random-number-generation-in-a-new-or-existing-lib-module-and-ensure-consistent-formatting-and-validation-across-tools",
+      "title": "Add shared, reusable frontend utility functions to support the Number & Conversion Tools calculations (percent math, date/time differences, base conversion, random number generation) in a new or existing lib module, and ensure consistent formatting and validation across tools.",
+      "reqIds": [
+        "REQ-34"
+      ],
+      "version": 1
     }
   ],
   "new_feature_requests": [
@@ -139,6 +318,138 @@
     {
       "id": "AR-6",
       "summary": "Add AdSense ad placements: top and bottom banner areas using provided AdSense script/snippet",
+      "reqIds": [],
+      "status": "pending"
+    },
+    {
+      "id": "AR-7",
+      "summary": "Add an ads.txt file for AdSense with entry: google.com, pub-9284074903614668, DIRECT, f08c47fec0942fa0",
+      "reqIds": [],
+      "status": "pending"
+    },
+    {
+      "id": "AR-8",
+      "summary": "Add a \"Text & Writing Tools\" section on the hub that opens a dedicated page listing the text tools",
+      "reqIds": [],
+      "status": "pending"
+    },
+    {
+      "id": "AR-9",
+      "summary": "Add Case Converter tool (UPPER / lower / Title Case)",
+      "reqIds": [],
+      "status": "pending"
+    },
+    {
+      "id": "AR-10",
+      "summary": "Add Word & Character Counter tool",
+      "reqIds": [],
+      "status": "pending"
+    },
+    {
+      "id": "AR-11",
+      "summary": "Add Remove Duplicate Lines tool",
+      "reqIds": [],
+      "status": "pending"
+    },
+    {
+      "id": "AR-12",
+      "summary": "Add Text Sorter tool (A–Z / Z–A)",
+      "reqIds": [],
+      "status": "pending"
+    },
+    {
+      "id": "AR-13",
+      "summary": "Add Line Breaker / Paragraph Formatter tool",
+      "reqIds": [],
+      "status": "pending"
+    },
+    {
+      "id": "AR-14",
+      "summary": "Add Slug / URL Generator tool",
+      "reqIds": [],
+      "status": "pending"
+    },
+    {
+      "id": "AR-15",
+      "summary": "Add Lorem Ipsum Generator tool",
+      "reqIds": [],
+      "status": "pending"
+    },
+    {
+      "id": "AR-16",
+      "summary": "Add Hashtag Generator tool",
+      "reqIds": [],
+      "status": "pending"
+    },
+    {
+      "id": "AR-17",
+      "summary": "Add Emoji Picker / Copier tool",
+      "reqIds": [],
+      "status": "pending"
+    },
+    {
+      "id": "AR-18",
+      "summary": "Add a single \"Popular Tools\" card on the homepage that navigates to a new page containing the first five tools (QR Code, Password, Image Resizer, Unit Converter, Random Name) together",
+      "reqIds": [],
+      "status": "pending"
+    },
+    {
+      "id": "AR-19",
+      "summary": "Add a \"Number & Conversion Tools\" card on the hub that navigates to a dedicated page listing number & conversion tools",
+      "reqIds": [],
+      "status": "pending"
+    },
+    {
+      "id": "AR-20",
+      "summary": "Add Percentage Calculator tool",
+      "reqIds": [],
+      "status": "pending"
+    },
+    {
+      "id": "AR-21",
+      "summary": "Add Tip / Gratuity Calculator tool",
+      "reqIds": [],
+      "status": "pending"
+    },
+    {
+      "id": "AR-22",
+      "summary": "Add Split Bill Calculator tool",
+      "reqIds": [],
+      "status": "pending"
+    },
+    {
+      "id": "AR-23",
+      "summary": "Add Age Calculator tool",
+      "reqIds": [],
+      "status": "pending"
+    },
+    {
+      "id": "AR-24",
+      "summary": "Add Date Difference Calculator tool",
+      "reqIds": [],
+      "status": "pending"
+    },
+    {
+      "id": "AR-25",
+      "summary": "Add Time Duration Calculator tool",
+      "reqIds": [],
+      "status": "pending"
+    },
+    {
+      "id": "AR-26",
+      "summary": "Add Binary / Decimal / Hex Converter tool",
+      "reqIds": [],
+      "status": "pending"
+    },
+    {
+      "id": "AR-27",
+      "summary": "Add Currency Converter tool",
+      "reqIds": [],
+      "status": "pending"
+    },
+    {
+      "id": "AR-28",
+      "summary": "Add Random Number Picker tool",
       "reqIds": [],
       "status": "pending"
     }

@@ -5,10 +5,13 @@ import PasswordPage from './pages/PasswordPage';
 import ImageResizerPage from './pages/ImageResizerPage';
 import UnitConverterPage from './pages/UnitConverterPage';
 import RandomNamePage from './pages/RandomNamePage';
+import TextWritingToolsPage from './pages/TextWritingToolsPage';
+import PopularToolsPage from './pages/PopularToolsPage';
+import NumberConversionToolsPage from './pages/NumberConversionToolsPage';
 import AppLayout from './components/AppLayout';
 import { Toaster } from '@/components/ui/sonner';
 
-export type Page = 'hub' | 'qr' | 'password' | 'image' | 'unit' | 'name';
+export type Page = 'hub' | 'qr' | 'password' | 'image' | 'unit' | 'name' | 'text' | 'popular' | 'number';
 
 function App() {
   const [currentPage, setCurrentPage] = useState<Page>('hub');
@@ -17,6 +20,8 @@ function App() {
     switch (currentPage) {
       case 'hub':
         return <HubPage onNavigate={setCurrentPage} />;
+      case 'popular':
+        return <PopularToolsPage />;
       case 'qr':
         return <QrCodePage />;
       case 'password':
@@ -27,6 +32,10 @@ function App() {
         return <UnitConverterPage />;
       case 'name':
         return <RandomNamePage />;
+      case 'text':
+        return <TextWritingToolsPage />;
+      case 'number':
+        return <NumberConversionToolsPage />;
       default:
         return <HubPage onNavigate={setCurrentPage} />;
     }
