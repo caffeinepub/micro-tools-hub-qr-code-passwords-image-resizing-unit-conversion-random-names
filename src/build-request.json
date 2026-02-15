@@ -1,100 +1,53 @@
 {
   "kind": "build_request",
-  "title": "Add Daily Utilities hub card and Daily Utilities tools page",
-  "priority": "normal",
+  "title": "Deploy the current Micro Tools Hub build to Internet Computer mainnet (live)",
+  "priority": "high",
   "requirements": [
     {
-      "id": "REQ-38",
-      "text": "Add a new Hub card titled \"Daily Utilities\" on the main hub page (frontend/src/pages/HubPage.tsx) that navigates to a dedicated Daily Utilities page when selected.",
-      "target": "frontend",
+      "id": "REQ-42",
+      "text": "Deploy the current application build to the Internet Computer mainnet (ic network) using the steps documented in frontend/DEPLOYMENT.md, producing an updated live canister deployment.",
+      "target": "unknown",
       "source": {
         "messageIds": [
-          "recent-messages-6"
+          "msg-4"
         ],
         "quotes": [
-          "Please add a card called Daily Utilities which has the following -\n\nCountdown timer\nStopwatch\nPomodoro timer\nAlarm\nTime zone difference checker\nSimple calendar printer\nShift / rota hours calculator"
+          "No this is perfect. Publish to live"
         ]
       },
       "acceptanceCriteria": [
-        "The Hub grid includes a card labeled \"Daily Utilities\".",
-        "Clicking the card navigates to the Daily Utilities page using the same onNavigate(Page) mechanism as other hub cards.",
-        "All user-facing text for the new card is in English."
+        "Deployment is executed against the `ic` network (not local).",
+        "The deployment completes successfully without errors.",
+        "The deployed app loads on mainnet and serves the latest UI (including the Hub and the latest tool pages)."
       ]
     },
     {
-      "id": "REQ-39",
-      "text": "Wire a new \"daily\" route into app navigation by extending the Page union and route switch in frontend/src/App.tsx, and ensure AppLayout back navigation returns to the hub as it does for other pages.",
+      "id": "REQ-43",
+      "text": "Perform a brief post-deploy verification on mainnet to confirm core navigation and critical pages work and that ad placement areas render in the layout.",
       "target": "frontend",
       "source": {
         "messageIds": [
-          "recent-messages-6"
+          "msg-4"
         ],
         "quotes": [
-          "Please add a card called Daily Utilities which has the following -\n\nCountdown timer\nStopwatch\nPomodoro timer\nAlarm\nTime zone difference checker\nSimple calendar printer\nShift / rota hours calculator"
+          "Publish to live"
         ]
       },
       "acceptanceCriteria": [
-        "App.tsx exports a Page union that includes a \"daily\" page id.",
-        "The main render switch in App.tsx renders the Daily Utilities page when currentPage is \"daily\".",
-        "When on the Daily Utilities page, the header back button returns to the hub (current behavior for non-hub pages)."
-      ]
-    },
-    {
-      "id": "REQ-40",
-      "text": "Create a new dedicated page component for \"Daily Utilities\" that presents the requested tools on a single page using a responsive tabbed interface consistent with existing multi-tool pages (e.g., uses frontend/src/components/WrappingTabsHeader.tsx), with clear input/output sections and consistent Clear/Copy interactions where applicable using the existing copy helper (frontend/src/lib/clipboard.ts).",
-      "target": "frontend",
-      "source": {
-        "messageIds": [
-          "recent-messages-6"
-        ],
-        "quotes": [
-          "Countdown timer\nStopwatch\nPomodoro timer\nAlarm\nTime zone difference checker\nSimple calendar printer\nShift / rota hours calculator"
-        ]
-      },
-      "acceptanceCriteria": [
-        "A new Daily Utilities page component exists under frontend/src/pages and is rendered by App.tsx when navigating to \"daily\".",
-        "The page title and tool labels are in English.",
-        "The page uses tabs (with wrapping tab triggers) to expose at least these 7 tools: Countdown timer, Stopwatch, Pomodoro timer, Alarm, Time zone difference checker, Simple calendar printer, Shift / rota hours calculator.",
-        "Each tool has a clear way to reset inputs/state (e.g., a \"Clear\" button) where applicable.",
-        "For tools that produce a text output (e.g., time zone difference summary, calendar text output, shift hours summary), a \"Copy\" action uses copyToClipboard from frontend/src/lib/clipboard.ts and shows the existing toast feedback."
-      ]
-    },
-    {
-      "id": "REQ-41",
-      "text": "Implement the Daily Utilities tool logic entirely on the frontend (no backend changes) and add shared, reusable frontend utility functions for time/timer scheduling calculations (countdowns, stopwatch formatting, pomodoro cycles, time zone offset comparisons, calendar generation, and shift/rota hour calculations) in a new or existing lib module.",
-      "target": "frontend",
-      "source": {
-        "messageIds": [
-          "recent-messages-6"
-        ],
-        "quotes": [
-          "Countdown timer\nStopwatch\nPomodoro timer\nAlarm\nTime zone difference checker\nSimple calendar printer\nShift / rota hours calculator"
-        ]
-      },
-      "acceptanceCriteria": [
-        "No changes are required in backend/main.mo (the backend remains unused for these tools).",
-        "Shared utility functions are created/reused from a lib module rather than embedding all calculation logic directly inside the page component.",
-        "Countdown timer: user can set a duration or target date/time and see remaining time update while running; can start/pause/reset.",
-        "Stopwatch: user can start/pause/reset and see elapsed time formatted consistently; (optional) laps if implemented must have a clear way to clear.",
-        "Pomodoro timer: user can start/pause/reset and configure at minimum work minutes and break minutes; clearly indicates current phase (work/break).",
-        "Alarm: user can set a time (and optionally a date); when it triggers, a clear on-screen indication appears and can be dismissed; includes a way to clear/disable the alarm.",
-        "Time zone difference checker: user can choose two time zones (at minimum via a curated list) and see the current offset/difference and an example time conversion; includes Clear/reset.",
-        "Simple calendar printer: user can choose month and year and generate a printable view; provides a \"Print\" action that uses the browser print flow.",
-        "Shift / rota hours calculator: user can enter at minimum start and end date/time (and optionally breaks) and get total hours; handles overnight shifts and shows validation errors in English for invalid inputs."
+        "On mainnet, the Hub page loads and navigation to Popular Tools, Text & Writing Tools, Number & Conversion Tools, and Daily Utilities works.",
+        "On mainnet, the top banner area renders below the header and above the main content and shows the placeholder label \"Advertisement\".",
+        "On mainnet, the bottom banner area renders above the footer and shows the placeholder label \"Advertisement\".",
+        "The /ads.txt asset is accessible at the root path `/ads.txt` on the deployed site and contains the expected AdSense line."
       ]
     }
   ],
   "constraints": [
-    "Frontend immutable paths must not be edited: frontend/src/hooks/useInternetIdentity.ts, frontend/src/hooks/useInternetIdentity.tsx, frontend/src/hooks/useActor.ts, frontend/src/main.tsx, frontend/src/components/ui.",
-    "Keep all user-facing text in English.",
-    "Do not add any external APIs or services for time zones or calendars; implement locally in the frontend.",
-    "Backend must remain single-actor; no backend work is required for these frontend-only utilities."
+    "Follow the documented deployment process in frontend/DEPLOYMENT.md.",
+    "Deploy to the Internet Computer mainnet using the `ic` network."
   ],
   "nonGoals": [
-    "Do not add Internet Identity/authentication changes.",
-    "Do not add persistence/saving of alarms or timers across sessions unless explicitly requested.",
-    "Do not integrate third-party time zone or calendar libraries/services beyond what is already in the project dependencies.",
-    "Do not change existing ad placements or AdSense script behavior."
+    "Adding new tools or modifying existing tool functionality as part of this deployment.",
+    "Changing the AdSense script snippet or ad placement design as part of this deployment."
   ],
   "imageRequirements": {
     "required": [],

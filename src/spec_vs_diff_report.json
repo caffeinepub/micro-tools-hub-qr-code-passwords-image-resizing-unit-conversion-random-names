@@ -1,105 +1,47 @@
 {
   "kind": "spec_vs_diff_report",
   "version": "1.0",
-  "generatedAt": "2026-02-13T23:56:51.305Z",
-  "summary": "Diff adds a new Daily Utilities hub card, wires a new 'daily' page id into App navigation, and introduces a new DailyUtilitiesPage plus a shared lib module (dailyUtilities.ts) with time/timer utilities. However, several acceptance-criteria behaviors for the 7 tools (Clear/Copy/Print/actions, alarm dismiss indication, shift validation, etc.) cannot be fully verified from the truncated diff.",
+  "generatedAt": "2026-02-14T00:09:14.052Z",
+  "summary": "Diff adds a post-deploy verification script and updates deployment/verification documentation and ads.txt, but does not provide evidence that a mainnet (`ic`) deployment was actually executed or that post-deploy verification was performed on mainnet.",
   "missing_requirements": [
     {
-      "id": "REQ-40",
-      "requirement": "Each tool has a clear way to reset inputs/state (e.g., a \"Clear\" button) where applicable.",
-      "reason": "DailyUtilitiesPage.tsx is truncated before tool UIs are fully shown; the diff summary does not provide evidence of Clear/reset controls per tool.",
+      "id": "REQ-42",
+      "requirement": "Deploy the current application build to the Internet Computer mainnet (ic network) using the steps documented in frontend/DEPLOYMENT.md, producing an updated live canister deployment.",
+      "reason": "The diff contains documentation/script additions but no evidence of an actual mainnet deployment being executed (e.g., updated canister IDs, deployment outputs, CI logs, or configuration changes indicating an `ic` deploy was run).",
       "evidence": [
-        "frontend/src/pages/DailyUtilitiesPage.tsx (truncated)"
+        "frontend-file-summaries.txt (mentions frontend/DEPLOYMENT.md updates but no deploy execution artifacts)"
       ]
     },
     {
-      "id": "REQ-40",
-      "requirement": "For tools that produce a text output, a \"Copy\" action uses copyToClipboard from frontend/src/lib/clipboard.ts and shows the existing toast feedback.",
-      "reason": "DailyUtilitiesPage imports copyToClipboard, but the truncated content does not show the actual Copy button wiring for outputs (time zone, calendar, shift summary) or toast behavior.",
+      "id": "REQ-43",
+      "requirement": "Perform a brief post-deploy verification on mainnet to confirm core navigation and critical pages work and that ad placement areas render in the layout.",
+      "reason": "The diff adds a script and checklist to help verification, but provides no evidence that verification was actually performed on mainnet or that results were recorded (requirement is an action/outcome).",
       "evidence": [
-        "frontend/src/pages/DailyUtilitiesPage.tsx (truncated)"
-      ]
-    },
-    {
-      "id": "REQ-41",
-      "requirement": "Countdown timer: user can set a duration or target date/time; see remaining time update while running; can start/pause/reset.",
-      "reason": "Countdown update logic is shown, but the diff is truncated before the UI/actions for start/pause/reset (and any duration-based input alternative) are visible.",
-      "evidence": [
-        "frontend/src/pages/DailyUtilitiesPage.tsx (truncated)",
-        "frontend/src/lib/dailyUtilities.ts"
-      ]
-    },
-    {
-      "id": "REQ-41",
-      "requirement": "Stopwatch: user can start/pause/reset and see elapsed time formatted consistently.",
-      "reason": "Stopwatch effect is truncated; the diff summary does not show the complete start/pause/reset controls or formatted rendering usage.",
-      "evidence": [
-        "frontend/src/pages/DailyUtilitiesPage.tsx (truncated)",
-        "frontend/src/lib/dailyUtilities.ts"
-      ]
-    },
-    {
-      "id": "REQ-41",
-      "requirement": "Pomodoro timer: start/pause/reset; configurable work and break minutes; clearly indicates current phase (work/break).",
-      "reason": "State variables exist and utility function exists, but the truncated page content does not show the full UI/phase indication or phase switching logic.",
-      "evidence": [
-        "frontend/src/pages/DailyUtilitiesPage.tsx (truncated)",
-        "frontend/src/lib/dailyUtilities.ts"
-      ]
-    },
-    {
-      "id": "REQ-41",
-      "requirement": "Alarm: user can set a time (and optionally a date); when it triggers, a clear on-screen indication appears and can be dismissed; includes a way to clear/disable the alarm.",
-      "reason": "Alarm state and trigger helper exist, but the truncated diff does not show the on-screen triggered indication, dismiss action, or clear/disable controls.",
-      "evidence": [
-        "frontend/src/pages/DailyUtilitiesPage.tsx (truncated)",
-        "frontend/src/lib/dailyUtilities.ts"
-      ]
-    },
-    {
-      "id": "REQ-41",
-      "requirement": "Time zone difference checker: choose two time zones (at minimum via a curated list) and see current offset/difference and an example time conversion; includes Clear/reset.",
-      "reason": "A curated TIME_ZONES list and getTimeZoneOffset helper exist, but the truncated page content does not show the full UI, the Clear/reset control, or that an example conversion is presented (helper returns a text summary but UI not shown).",
-      "evidence": [
-        "frontend/src/lib/dailyUtilities.ts",
-        "frontend/src/pages/DailyUtilitiesPage.tsx (truncated)"
-      ]
-    },
-    {
-      "id": "REQ-41",
-      "requirement": "Simple calendar printer: user can choose month and year and generate a printable view; provides a \"Print\" action that uses the browser print flow.",
-      "reason": "generateCalendar is imported and calendar state exists, but the calendar generation function is truncated in the lib file and the page UI/Print action (e.g., window.print()) is not visible in the truncated page content.",
-      "evidence": [
-        "frontend/src/lib/dailyUtilities.ts (truncated)",
-        "frontend/src/pages/DailyUtilitiesPage.tsx (truncated)"
-      ]
-    },
-    {
-      "id": "REQ-41",
-      "requirement": "Shift / rota hours calculator: enter start and end date/time (and optionally breaks) and get total hours; handles overnight shifts and shows validation errors in English for invalid inputs.",
-      "reason": "calculateShiftHours is imported and shiftError state exists, but the implementation of calculateShiftHours is not shown (lib file truncated) and the validation/error messaging behavior cannot be verified.",
-      "evidence": [
-        "frontend/src/lib/dailyUtilities.ts (truncated)",
-        "frontend/src/pages/DailyUtilitiesPage.tsx (truncated)"
+        "frontend/scripts/post-deploy-verify.sh",
+        "frontend-file-summaries.txt (mentions frontend/DEPLOYMENT.md post-deploy checklist)"
       ]
     }
   ],
   "hallucinated_features": [
     {
-      "description": "Potential audible alarm via an HTMLAudioElement ref for the Alarm tool.",
-      "reason": "BuildRequest requires an on-screen indication and dismiss/clear controls, but does not request audio playback; the diff introduces alarmAudioRef suggesting an audio feature.",
+      "description": "Post-deploy script includes extra guidance and checks not requested (e.g., AdSense network request validation, tool-specific spot checks, and \"Next steps\" like submitting to AdSense/monitoring cycles).",
+      "reason": "BuildRequest REQ-43 only requires verifying navigation, ad placeholder areas, and ads.txt; additional checks and post-deploy recommendations were not requested.",
       "evidence": [
-        "frontend/src/pages/DailyUtilitiesPage.tsx (truncated): const alarmAudioRef = useRef<HTMLAudioElement | null>(null);"
+        "frontend/scripts/post-deploy-verify.sh"
+      ]
+    },
+    {
+      "description": "Verification script asserts specific tool counts per category (e.g., Popular Tools = 5, Text & Writing Tools = 9, Number & Conversion Tools = 10, Daily Utilities = 7).",
+      "reason": "BuildRequest requires that navigation works, not that specific category tool counts match particular numbers.",
+      "evidence": [
+        "frontend/scripts/post-deploy-verify.sh"
       ]
     }
   ],
-  "confidence": 0.58,
+  "confidence": 0.74,
   "changed_files": [
     "frontend-file-summaries.txt",
-    "frontend/src/App.tsx",
-    "frontend/src/lib/dailyUtilities.ts",
-    "frontend/src/pages/DailyUtilitiesPage.tsx",
-    "frontend/src/pages/HubPage.tsx",
+    "frontend/scripts/post-deploy-verify.sh",
     "project_state.json"
   ]
 }

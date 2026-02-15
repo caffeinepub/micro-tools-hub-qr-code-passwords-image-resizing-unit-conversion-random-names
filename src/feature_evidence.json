@@ -2,10 +2,10 @@
   "kind": "feature_evidence_report",
   "features": [
     {
-      "featureId": "feature-add-a-new-hub-card-titled-daily-utilities-on-the-main-hub-page-frontend-src-pages-hubpage-tsx-that-navigates-to-a-dedicated-daily-utilities-page-when-selected",
-      "featureTitle": "Add a new Hub card titled \"Daily Utilities\" on the main hub page (frontend/src/pages/HubPage.tsx) that navigates to a dedicated Daily Utilities page when selected.",
+      "featureId": "feature-perform-a-brief-post-deploy-verification-on-mainnet-to-confirm-core-navigation-and-critical-pages-work-and-that-ad-placement-areas-render-in-the-layout",
+      "featureTitle": "Perform a brief post-deploy verification on mainnet to confirm core navigation and critical pages work and that ad placement areas render in the layout.",
       "files": [
-        "frontend/src/pages/HubPage.tsx"
+        "frontend/scripts/post-deploy-verify.sh"
       ],
       "components": [
         "core-infrastructure@1.0.2",
@@ -15,62 +15,7 @@
         "github-export-icp-cli@1.0.0"
       ],
       "testIds": [
-        "REQ-38"
-      ],
-      "confidence": "high"
-    },
-    {
-      "featureId": "feature-wire-a-new-daily-route-into-app-navigation-by-extending-the-page-union-and-route-switch-in-frontend-src-app-tsx-and-ensure-applayout-back-navigation-returns-to-the-hub-as-it-does-for-other-pages",
-      "featureTitle": "Wire a new \"daily\" route into app navigation by extending the Page union and route switch in frontend/src/App.tsx, and ensure AppLayout back navigation returns to the hub as it does for other pages.",
-      "files": [
-        "frontend/src/App.tsx"
-      ],
-      "components": [
-        "core-infrastructure@1.0.2",
-        "shadcn-ui@1.0.0",
-        "build-template-react@1.0.0",
-        "initial-app@1.0.0",
-        "github-export-icp-cli@1.0.0"
-      ],
-      "testIds": [
-        "REQ-39"
-      ],
-      "confidence": "high"
-    },
-    {
-      "featureId": "feature-create-a-new-dedicated-page-component-for-daily-utilities-that-presents-the-requested-tools-on-a-single-page-using-a-responsive-tabbed-interface-consistent-with-existing-multi-tool-pages-e-g-uses-frontend-src-components-wrappingtabsheader-tsx-with-clear-input-output-sections-and-consistent-clear-copy-interactions-where-applicable-using-the-existing-copy-helper-frontend-src-lib-clipboard-ts",
-      "featureTitle": "Create a new dedicated page component for \"Daily Utilities\" that presents the requested tools on a single page using a responsive tabbed interface consistent with existing multi-tool pages (e.g., uses frontend/src/components/WrappingTabsHeader.tsx), with clear input/output sections and consistent Clear/Copy interactions where applicable using the existing copy helper (frontend/src/lib/clipboard.ts).",
-      "files": [
-        "frontend/src/pages/DailyUtilitiesPage.tsx"
-      ],
-      "components": [
-        "core-infrastructure@1.0.2",
-        "shadcn-ui@1.0.0",
-        "build-template-react@1.0.0",
-        "initial-app@1.0.0",
-        "github-export-icp-cli@1.0.0"
-      ],
-      "testIds": [
-        "REQ-40"
-      ],
-      "confidence": "high"
-    },
-    {
-      "featureId": "feature-implement-the-daily-utilities-tool-logic-entirely-on-the-frontend-no-backend-changes-and-add-shared-reusable-frontend-utility-functions-for-time-timer-scheduling-calculations-countdowns-stopwatch-formatting-pomodoro-cycles-time-zone-offset-comparisons-calendar-generation-and-shift-rota-hour-calculations-in-a-new-or-existing-lib-module",
-      "featureTitle": "Implement the Daily Utilities tool logic entirely on the frontend (no backend changes) and add shared, reusable frontend utility functions for time/timer scheduling calculations (countdowns, stopwatch formatting, pomodoro cycles, time zone offset comparisons, calendar generation, and shift/rota hour calculations) in a new or existing lib module.",
-      "files": [
-        "frontend/src/lib/dailyUtilities.ts",
-        "frontend/src/pages/DailyUtilitiesPage.tsx"
-      ],
-      "components": [
-        "core-infrastructure@1.0.2",
-        "shadcn-ui@1.0.0",
-        "build-template-react@1.0.0",
-        "initial-app@1.0.0",
-        "github-export-icp-cli@1.0.0"
-      ],
-      "testIds": [
-        "REQ-41"
+        "REQ-43"
       ],
       "confidence": "high"
     }

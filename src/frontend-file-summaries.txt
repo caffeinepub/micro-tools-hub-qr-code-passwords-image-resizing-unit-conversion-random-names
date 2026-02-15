@@ -27,5 +27,6 @@
   "frontend/src/lib/numberTools.ts": "Reusable calculation utilities for percentage math, tip/split bill calculations, age/date/time computations, base conversions (binary/decimal/hex), currency conversion, and random number generation with validation helpers.",
   "frontend/src/components/WrappingTabsHeader.tsx": "Reusable component that renders a wrapping TabsList with TabsTriggers that automatically flow onto multiple rows on all screen sizes without horizontal scrolling.",
   "frontend/src/lib/dailyUtilities.ts": "Utility functions for daily tools including time formatting, countdown/stopwatch/pomodoro calculations, alarm triggers, timezone conversions, calendar generation, and shift hour calculations.",
-  "frontend/src/pages/DailyUtilitiesPage.tsx": "Daily Utilities page component with seven tabbed tools (countdown timer, stopwatch, pomodoro timer, alarm, timezone checker, calendar printer, and shift calculator) using React state and effects for real-time updates."
+  "frontend/src/pages/DailyUtilitiesPage.tsx": "Daily Utilities page component with seven tabbed tools (countdown timer, stopwatch, pomodoro timer, alarm, timezone checker, calendar printer, and shift calculator) using React state and effects for real-time updates.",
+  "frontend/scripts/post-deploy-verify.sh": "Lightweight post-deploy verification helper script that checks ads.txt accessibility and content, then provides a comprehensive manual verification checklist for navigation, ad placeholders, AdSense integration, and tool functionality on mainnet."
 }

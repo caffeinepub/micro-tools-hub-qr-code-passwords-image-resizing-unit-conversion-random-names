@@ -1,59 +1,34 @@
 {
   "kind": "coverage_report",
   "version": "1.0",
-  "generatedAt": "2026-02-13T23:56:51.309Z",
+  "generatedAt": "2026-02-14T00:09:14.055Z",
   "sources": {
     "buildRequest": true,
     "implementationPlan": true
   },
   "requirements": {
-    "total": 4,
-    "implemented": 4,
+    "total": 2,
+    "implemented": 1,
     "items": [
       {
-        "id": "REQ-38",
-        "summary": "Add a new Hub card titled \"Daily Utilities\" on the main hub page (frontend/src/pages/HubPage.tsx) that navigates to a dedicated Daily Utilities page when selected.",
-        "status": "implemented",
+        "id": "REQ-42",
+        "summary": "Deploy the current application build to the Internet Computer mainnet (ic network) using the steps documented in frontend/DEPLOYMENT.md, producing an updated live canister deployment.",
+        "status": "missing",
         "plannedFiles": [
-          "frontend/src/pages/HubPage.tsx"
+          "frontend/DEPLOYMENT.md"
         ],
-        "matchedFiles": [
-          "frontend/src/pages/HubPage.tsx"
-        ]
+        "matchedFiles": []
       },
       {
-        "id": "REQ-39",
-        "summary": "Wire a new \"daily\" route into app navigation by extending the Page union and route switch in frontend/src/App.tsx, and ensure AppLayout back navigation returns to the hub as it does for other pages.",
+        "id": "REQ-43",
+        "summary": "Perform a brief post-deploy verification on mainnet to confirm core navigation and critical pages work and that ad placement areas render in the layout.",
         "status": "implemented",
         "plannedFiles": [
-          "frontend/src/App.tsx"
+          "frontend/DEPLOYMENT.md",
+          "frontend/scripts/post-deploy-verify.sh"
         ],
         "matchedFiles": [
-          "frontend/src/App.tsx"
-        ]
-      },
-      {
-        "id": "REQ-40",
-        "summary": "Create a new dedicated page component for \"Daily Utilities\" that presents the requested tools on a single page using a responsive tabbed interface consistent with existing multi-tool pages (e.g., uses frontend/src/components/WrappingTabsHeader.tsx), with clear input/output sections and consistent Clear/Copy interactions where applicable using the existing copy helper (frontend/src/lib/clipboard.ts).",
-        "status": "implemented",
-        "plannedFiles": [
-          "frontend/src/pages/DailyUtilitiesPage.tsx"
-        ],
-        "matchedFiles": [
-          "frontend/src/pages/DailyUtilitiesPage.tsx"
-        ]
-      },
-      {
-        "id": "REQ-41",
-        "summary": "Implement the Daily Utilities tool logic entirely on the frontend (no backend changes) and add shared, reusable frontend utility functions for time/timer scheduling calculations (countdowns, stopwatch formatting, pomodoro cycles, time zone offset comparisons, calendar generation, and shift/rota hour calculations) in a new or existing lib module.",
-        "status": "implemented",
-        "plannedFiles": [
-          "frontend/src/lib/dailyUtilities.ts",
-          "frontend/src/pages/DailyUtilitiesPage.tsx"
-        ],
-        "matchedFiles": [
-          "frontend/src/lib/dailyUtilities.ts",
-          "frontend/src/pages/DailyUtilitiesPage.tsx"
+          "frontend/scripts/post-deploy-verify.sh"
         ]
       }
     ]
@@ -63,10 +38,7 @@
     "feature_evidence.json",
     "frontend-file-summaries.txt",
     "frontend-implementation-plan.json",
-    "frontend/src/App.tsx",
-    "frontend/src/lib/dailyUtilities.ts",
-    "frontend/src/pages/DailyUtilitiesPage.tsx",
-    "frontend/src/pages/HubPage.tsx",
+    "frontend/scripts/post-deploy-verify.sh",
     "project_state.json",
     "scratch/component-selection.json",
     "spec.md",

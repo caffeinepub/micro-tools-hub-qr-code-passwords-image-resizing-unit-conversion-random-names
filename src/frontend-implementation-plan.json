@@ -1,82 +1,43 @@
 {
   "kind": "implementation_plan",
   "version": "1.0",
-  "title": "Daily Utilities hub card + tabbed Daily Utilities tools page",
+  "title": "Deploy Micro Tools Hub to Internet Computer mainnet (ic) with post-deploy verification",
   "requirements": [
     {
-      "id": "REQ-38",
-      "summary": "Add a new \"Daily Utilities\" card to the hub grid that navigates to the Daily Utilities page.",
+      "id": "REQ-42",
+      "summary": "Update deployment documentation to ensure the current build is deployed to Internet Computer mainnet (`ic`) successfully using the documented process.",
       "acceptanceCriteria": [
-        "The Hub grid includes a card labeled \"Daily Utilities\".",
-        "Clicking the card navigates to the Daily Utilities page using the same onNavigate(Page) mechanism as other hub cards.",
-        "All user-facing text for the new card is in English."
+        "Deployment is executed against the `ic` network (not local).",
+        "The deployment completes successfully without errors.",
+        "The deployed app loads on mainnet and serves the latest UI (including the Hub and the latest tool pages)."
       ],
       "file_operations": [
         {
-          "path": "frontend/src/pages/HubPage.tsx",
+          "path": "frontend/DEPLOYMENT.md",
           "operation": "modify",
-          "description": "Add a new tools[] entry for the \"Daily Utilities\" hub card (title/description in English), with an appropriate icon and styling consistent with other cards, and ensure it calls onNavigate('daily') when selected."
+          "description": "Complete and clarify the documented mainnet deployment process to explicitly use the `ic` network (including build + deploy steps, required environment/prereqs, and any verification pointers), ensuring it matches the current repository structure and produces an updated live canister deployment."
         }
       ]
     },
     {
-      "id": "REQ-39",
-      "summary": "Add a new \"daily\" page id to app navigation and render the Daily Utilities page from App.tsx.",
+      "id": "REQ-43",
+      "summary": "Add a brief post-deploy verification checklist/script to confirm mainnet navigation, ad placeholder regions, and ads.txt availability.",
       "acceptanceCriteria": [
-        "App.tsx exports a Page union that includes a \"daily\" page id.",
-        "The main render switch in App.tsx renders the Daily Utilities page when currentPage is \"daily\".",
-        "When on the Daily Utilities page, the header back button returns to the hub (current behavior for non-hub pages)."
+        "On mainnet, the Hub page loads and navigation to Popular Tools, Text & Writing Tools, Number & Conversion Tools, and Daily Utilities works.",
+        "On mainnet, the top banner area renders below the header and above the main content and shows the placeholder label \"Advertisement\".",
+        "On mainnet, the bottom banner area renders above the footer and shows the placeholder label \"Advertisement\".",
+        "The /ads.txt asset is accessible at the root path `/ads.txt` on the deployed site and contains the expected AdSense line."
       ],
       "file_operations": [
         {
-          "path": "frontend/src/App.tsx",
+          "path": "frontend/DEPLOYMENT.md",
           "operation": "modify",
-          "description": "Extend the exported Page union to include 'daily', import the new DailyUtilitiesPage component, and add a switch case to render it when currentPage === 'daily'."
-        }
-      ]
-    },
-    {
-      "id": "REQ-40",
-      "summary": "Create a dedicated Daily Utilities page with a responsive tabbed interface exposing 7 tools, with clear reset and copy interactions where applicable.",
-      "acceptanceCriteria": [
-        "A new Daily Utilities page component exists under frontend/src/pages and is rendered by App.tsx when navigating to \"daily\".",
-        "The page title and tool labels are in English.",
-        "The page uses tabs (with wrapping tab triggers) to expose at least these 7 tools: Countdown timer, Stopwatch, Pomodoro timer, Alarm, Time zone difference checker, Simple calendar printer, Shift / rota hours calculator.",
-        "Each tool has a clear way to reset inputs/state (e.g., a \"Clear\" button) where applicable.",
-        "For tools that produce a text output (e.g., time zone difference summary, calendar text output, shift hours summary), a \"Copy\" action uses copyToClipboard from frontend/src/lib/clipboard.ts and shows the existing toast feedback."
-      ],
-      "file_operations": [
-        {
-          "path": "frontend/src/pages/DailyUtilitiesPage.tsx",
-          "operation": "create",
-          "description": "Create the new Daily Utilities page UI and state management as a single-page, multi-tool experience. Use the existing WrappingTabsHeader component to provide a responsive, wrapping tabs header consistent with other multi-tool pages (Verify the component's usage instructions before implementing). Provide 7 tab panels: Countdown timer, Stopwatch, Pomodoro timer, Alarm, Time zone difference checker, Simple calendar printer, Shift / rota hours calculator. For any tool with text output, add a Copy action that uses copyToClipboard from frontend/src/lib/clipboard.ts (Verify the component's usage instructions before implementing). Ensure each tool has a Clear/Reset interaction where applicable and all user-facing text is in English."
-        }
-      ]
-    },
-    {
-      "id": "REQ-41",
-      "summary": "Implement all Daily Utilities logic on the frontend with shared reusable time/timer/timezone/calendar/shift calculation helpers in a lib module.",
-      "acceptanceCriteria": [
-        "No changes are required in backend/main.mo (the backend remains unused for these tools).",
-        "Shared utility functions are created/reused from a lib module rather than embedding all calculation logic directly inside the page component.",
-        "Countdown timer: user can set a duration or target date/time and see remaining time update while running; can start/pause/reset.",
-        "Stopwatch: user can start/pause/reset and see elapsed time formatted consistently; (optional) laps if implemented must have a clear way to clear.",
-        "Pomodoro timer: user can start/pause/reset and configure at minimum work minutes and break minutes; clearly indicates current phase (work/break).",
-        "Alarm: user can set a time (and optionally a date); when it triggers, a clear on-screen indication appears and can be dismissed; includes a way to clear/disable the alarm.",
-        "Time zone difference checker: user can choose two time zones (at minimum via a curated list) and see the current offset/difference and an example time conversion; includes Clear/reset.",
-        "Simple calendar printer: user can choose month and year and generate a printable view; provides a \"Print\" action that uses the browser print flow.",
-        "Shift / rota hours calculator: user can enter at minimum start and end date/time (and optionally breaks) and get total hours; handles overnight shifts and shows validation errors in English for invalid inputs."
-      ],
-      "file_operations": [
-        {
-          "path": "frontend/src/lib/dailyUtilities.ts",
-          "operation": "create",
-          "description": "Add shared, reusable frontend-only utility functions to support Daily Utilities calculations and formatting (countdown/stopwatch duration formatting, pomodoro phase/cycle computations, alarm trigger time computations, time zone offset/difference calculation using local Intl APIs with a curated time zone list, simple month calendar data generation for printing, and shift/rota total hours calculations including overnight shifts and optional break handling). Keep all validation/error messages in English."
+          "description": "Add a concise post-deploy verification section documenting the required mainnet checks: Hub navigation to Popular Tools/Text & Writing Tools/Number & Conversion Tools/Daily Utilities, visibility of the top and bottom \"Advertisement\" placeholder areas in the shared layout, and validation that `/ads.txt` is served and matches the expected AdSense line."
         },
         {
-          "path": "frontend/src/pages/DailyUtilitiesPage.tsx",
-          "operation": "modify",
-          "description": "Refactor the Daily Utilities page to use helpers from frontend/src/lib/dailyUtilities.ts for calculations/scheduling/formatting rather than embedding all logic inline. Ensure timers update while running using browser timing (e.g., intervals) and provide Start/Pause/Reset flows per tool; ensure calendar Print uses the browser print flow."
+          "path": "frontend/scripts/post-deploy-verify.sh",
+          "operation": "create",
+          "description": "Create a lightweight post-deploy verification helper that (a) prompts for the deployed mainnet URL, (b) checks that `/ads.txt` is reachable and contains the expected AdSense line from `frontend/public/ads.txt`, and (c) prints the manual navigation and ad-placeholder verification steps to complete in the browser on mainnet."
         }
       ]
     }

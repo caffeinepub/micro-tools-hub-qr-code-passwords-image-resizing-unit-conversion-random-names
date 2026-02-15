@@ -1,6 +1,6 @@
 {
   "schemaVersion": "1.0.0",
-  "projectStateVersion": 25,
+  "projectStateVersion": 27,
   "summary": "Micro tools hub app featuring existing tools plus a \"Text & Writing Tools\" section, AdSense placements, a \"Popular Tools\" entry on the home page linking to a combined page, a \"Number & Conversion Tools\" card/section that opens a page containing calculators and conversion utilities, and a new \"Daily Utilities\" card/section that opens a page containing time and scheduling utilities (countdown timer, stopwatch, pomodoro timer, alarm, time zone difference checker, simple calendar printer, shift/rota hours calculator).",
   "architectural_notes": [
     "Monetization via ads: integrate Google AdSense (browser-side script) and render two ad slots (top and bottom banners) across the app or key pages.",
@@ -322,6 +322,14 @@
         "REQ-41"
       ],
       "version": 1
+    },
+    {
+      "id": "feature-perform-a-brief-post-deploy-verification-on-mainnet-to-confirm-core-navigation-and-critical-pages-work-and-that-ad-placement-areas-render-in-the-layout",
+      "title": "Perform a brief post-deploy verification on mainnet to confirm core navigation and critical pages work and that ad placement areas render in the layout.",
+      "reqIds": [
+        "REQ-43"
+      ],
+      "version": 1
     }
   ],
   "new_feature_requests": [
@@ -567,6 +575,14 @@
       "id": "AR-40",
       "summary": "Add Shift / Rota Hours Calculator tool",
       "reqIds": [],
+      "status": "pending"
+    },
+    {
+      "id": "AR-41",
+      "summary": "Deploy the current application build to the Internet Computer mainnet (ic network) using the steps documented in frontend/DEPLOYMENT.md, producing an updated live canister deployment.",
+      "reqIds": [
+        "REQ-42"
+      ],
       "status": "pending"
     }
   ],
